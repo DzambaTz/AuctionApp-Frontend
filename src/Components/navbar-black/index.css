@@ -77,6 +77,10 @@
     margin: 0 10px;
 }
 
+.login-and-signup ul li:hover {
+    text-decoration: underline;
+}
+
 .login-and-signup a:link{
     color: white;
     text-decoration: none;
