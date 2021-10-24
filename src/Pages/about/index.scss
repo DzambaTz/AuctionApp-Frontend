@@ -1,0 +1,54 @@
+@import "../../Helpers/constants.scss";
+
+.about-banner {
+  background-color: $banner-color;
+  height: 60px;
+  font-family: $main-font;
+  font-size: 16px;
+  color: $dark-gray;
+  font-weight: 700;
+  line-height: 60px;
+  padding-left: 8%;
+}
+
+.about-body {
+  margin-bottom: 100px;
+  height: 900px;
+  h1 {
+    font-size: 32px;
+    font-family: $main-font;
+    padding-top: 40px;
+    color: black;
+  }
+}
+
+.about-text {
+  display: inline;
+  float: left;
+  font-family: $main-font;
+  font-size: 16px;
+  padding-left: 8%;
+  width: 50%;
+  text-align: justify;
+  box-sizing: border-box;
+  height: 100%;
+  color: $light-gray;
+}
+
+.about-images {
+  padding-top: 6%;
+  display: inline;
+  float: left;
+  width: 50%;
+  height: 100%;
+  vertical-align: top;
+  box-sizing: border-box;
+  text-align: center;
+  padding-left: 2%;
+  img {
+    padding-top: 3%;
+    padding-right: 25px;
+    max-width: 31%;
+    height: auto;
+  }
+}

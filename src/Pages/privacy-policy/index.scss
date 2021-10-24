@@ -1,0 +1,27 @@
+@import "../../Helpers/constants.scss";
+
+.privacy-banner {
+  background-color: $banner-color;
+  height: 60px;
+  font-family: $main-font;
+  font-size: 16px;
+  color: $dark-gray;
+  font-weight: 700;
+  line-height: 60px;
+  padding-left: 8%;
+}
+
+.privacy-body {
+  width: 33%;
+  text-align: justify;
+  font-family: $main-font;
+  margin: auto;
+  margin-bottom: 100px;
+  font-size: 400;
+  color: $light-gray;
+  h1 {
+    color: black;
+    font-size: 32px;
+    font-weight: 400;
+  }
+}

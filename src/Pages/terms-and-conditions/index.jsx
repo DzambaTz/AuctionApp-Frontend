@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./index.css";
+import "./index.scss";
 
 import NavbarBlack from "../../Components/navbar-black";
 import NavbarWhite from "../../Components/navbar-white";

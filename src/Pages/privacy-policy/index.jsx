@@ -3,7 +3,7 @@ import NavbarBlack from "../../Components/navbar-black";
 import NavbarWhite from "../../Components/navbar-white";
 import Footer from "../../Components/footer";
 
-import "./index.css";
+import "./index.scss";
 
 const PrivacyPage = () => {
   return (
