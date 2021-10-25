@@ -10,3 +10,67 @@
   line-height: 60px;
   padding-left: 8%;
 }
+
+.login-form {
+  width: 30%;
+  height: 750px;
+  border: solid 1.5px $dark-white;
+  margin: auto;
+  margin-top: 16px;
+  margin-bottom: 50px;
+  font-family: $main-font;
+  padding-left: 95px;
+  padding-right: 95px;
+  h1 {
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+    margin: 0;
+    box-sizing: content-box;
+    padding: 25px 0px 25px 0px;
+    margin-bottom: 48px;
+    width: 100%;
+  }
+  label {
+    font-size: 18px;
+    font-weight: 400;
+  }
+  input {
+    margin-top: 16px;
+    margin-bottom: 32px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 18px 0px 18px 24px;
+    background-color: $banner-color;
+    border: solid 1px $dark-white;
+  }
+  input:focus {
+    outline-color: $purple;
+    border-radius: 0%;
+  }
+  ::placeholder {
+    opacity: 0.7;
+    font-size: 18px;
+    font-weight: 400;
+    font-family: $main-font;
+  }
+  #login-remember {
+    display: inline;
+    width: 5%;
+    margin-left: 0;
+    padding-left: 0;
+    margin-bottom: 70px;
+  }
+  button {
+    width: 100%;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    border: 0;
+    background-color: $purple;
+    color: white;
+    font-size: 18px;
+  }
+  button:hover {
+    background: darken($purple, 7%);
+  }
+}
