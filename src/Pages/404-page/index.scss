@@ -1,0 +1,40 @@
+@import "../../Helpers/constants.scss";
+
+.not-found-body {
+  text-align: center;
+  padding-top: 100px;
+  height: 1100px;
+  h1 {
+    font-family: $main-font;
+    color: $purple;
+    font-size: 192px;
+    text-shadow: 5px 5px $dark-white;
+    margin-top: 70px;
+    font-weight: 400;
+  }
+  h2 {
+    font-family: $main-font;
+    font-size: 32px;
+    margin-top: 70px;
+    margin-bottom: 50px;
+  }
+  a {
+    font-family: $main-font;
+    color: $dark-gray;
+    border: solid 3px $purple;
+    padding: 15px 25px;
+    font-size: 18px;
+    font-weight: 700;
+  }
+  a:link {
+    color: $dark-gray;
+    text-decoration: none;
+  }
+  a:visited {
+    color: $dark-gray;
+    text-decoration: none;
+  }
+  a:hover {
+    box-shadow: 3px 3px $dark-white;
+  }
+}
