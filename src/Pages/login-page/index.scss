@@ -26,7 +26,6 @@
     font-weight: 700;
     text-align: center;
     margin: 0;
-    box-sizing: content-box;
     padding: 25px 0px 25px 0px;
     margin-bottom: 48px;
     width: 100%;
@@ -43,6 +42,8 @@
     padding: 18px 0px 18px 24px;
     background-color: $banner-color;
     border: solid 1px $dark-white;
+    font-family: $main-font;
+    font-size: 18px;
   }
   input:focus {
     outline-color: $purple;
@@ -69,6 +70,7 @@
     background-color: $purple;
     color: white;
     font-size: 18px;
+    box-shadow: 3.5px 3.5px $dark-white;
   }
   button:hover {
     background: darken($purple, 7%);

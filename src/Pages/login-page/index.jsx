@@ -3,8 +3,6 @@ import NavbarBlack from "../../Components/navbar-black";
 import NavbarWhite from "../../Components/navbar-white";
 import Footer from "../../Components/footer";
 
-import loginService from "../../Auth/loginService";
-
 import "./index.scss";
 
 const LoginPage = () => {
@@ -13,7 +11,7 @@ const LoginPage = () => {
       <NavbarBlack />
       <NavbarWhite />
       <div className="login-banner">Login</div>
-      <form className="login-form" onClick={loginService("message")}>
+      <form className="login-form">
         <h1>LOGIN</h1>
         <label htmlFor="login-email">Enter Email</label>
         <br />
@@ -22,6 +20,7 @@ const LoginPage = () => {
           name="login-email"
           id="login-email"
           placeholder="Email"
+          required
         />
         <br />
         <label htmlFor="login-password">Password</label>
@@ -32,6 +31,7 @@ const LoginPage = () => {
           id="login-password"
           placeholder="Password"
           Style="margin-bottom: 5px;"
+          required
         />
         <br />
         <input type="checkbox" name="login-remember" id="login-remember" />
