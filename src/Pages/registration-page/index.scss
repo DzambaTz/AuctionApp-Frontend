@@ -65,7 +65,6 @@
     color: white;
     font-size: 18px;
     box-shadow: 3.5px 3.5px $dark-white;
-    margin-bottom: 50px;
   }
   button:hover {
     background: darken($purple, 7%);
@@ -73,6 +72,7 @@
   div {
     text-align: center;
     color: $light-gray;
+    margin-top: 15px;
   }
   a {
     margin-left: 32px;
@@ -83,4 +83,23 @@
   a:hover {
     text-decoration: underline;
   }
+}
+
+.registration-message {
+  margin-top: 0px;
+  height: 50px;
+  width: 100%;
+  color: $dark-gray;
+  font-family: $main-font;
+  font-weight: 700;
+  text-align: center;
+  line-height: 50px;
+}
+
+.successful {
+  background-color: rgba($color: #23c552, $alpha: 0.2);
+}
+
+.failed {
+  background-color: rgba($color: #ff0f0f, $alpha: 0.2);
 }

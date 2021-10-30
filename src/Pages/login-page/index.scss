@@ -76,3 +76,15 @@
     background: darken($purple, 7%);
   }
 }
+
+.login-message {
+  margin-top: 32px;
+  height: 50px;
+  width: 100%;
+  color: $dark-gray;
+  background-color: rgba($color: #ff0f0f, $alpha: 0.2);
+  font-family: $main-font;
+  font-weight: 700;
+  text-align: center;
+  line-height: 50px;
+}
