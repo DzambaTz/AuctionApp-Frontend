@@ -1,16 +1,15 @@
-import axios from "axios";
-import authHeader from "./auth-header";
+import api from "../Helpers/api";
+import authHeader from "../Helpers/auth-header";
 
-const API_URL = "http://localhost:8080/api/test/";
+const getPublicContent = () => {
+  return api.get("test/all");
+};
 
-class UserService {
-  getPublicContent() {
-    return axios.get(API_URL + "all");
-  }
+const getSellerContent = () => {
+  return api.get("test/seller", { headers: authHeader() });
+};
 
-  getSellerContent() {
-    return axios.get(API_URL + "seller", { headers: authHeader() });
-  }
-}
-
-export default new UserService();
+export default {
+  getPublicContent,
+  getSellerContent,
+};
