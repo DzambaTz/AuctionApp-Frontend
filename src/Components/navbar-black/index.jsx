@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import "./index.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -8,96 +8,80 @@ import {
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 
-import AuthService from "../../Auth/auth.service";
+import authService from "../../Auth/auth.service";
 
-export default class NavbarBlack extends Component {
-  constructor(props) {
-    super(props);
-    this.handleLogout = this.handleLogout.bind(this);
+function NavbarBlack() {
+  const [currentUser, setCurrentUser] = useState(undefined);
 
-    this.state = {
-      currentUser: undefined,
-    };
-  }
+  useEffect(() => {
+    setCurrentUser(authService.getCurrentUser());
+  }, []);
 
-  componentDidMount() {
-    const user = AuthService.getCurrentUser();
-
-    if (user) {
-      this.setState({
-        currentUser: user,
-      });
-    }
-  }
-
-  handleLogout(e) {
+  const handleLogout = (e) => {
     e.preventDefault();
 
-    AuthService.logout();
-    window.location.reload();
-  }
+    authService.logout();
+    setCurrentUser(undefined);
+  };
 
-  render() {
-    return (
-      <div className="navbar-body">
-        <div className="social-media">
+  return (
+    <div className="navbar-body">
+      <div className="social-media">
+        <ul>
+          <li>
+            <a
+              href="https://www.facebook.com/tarik.dzambic"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <FontAwesomeIcon icon={faFacebookF} />
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.instagram.com/d_z_a_m_b_a/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <FontAwesomeIcon icon={faInstagram} />
+            </a>
+          </li>
+          <li>
+            <a href="https://twitter.com/" target="_blank" rel="noreferrer">
+              <FontAwesomeIcon icon={faTwitter} />
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.linkedin.com/in/tarikdzambic/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <FontAwesomeIcon icon={faLinkedinIn} />
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div className="login-and-signup">
+        {currentUser != undefined ? (
+          <div className="navbar-username">
+            Hello, {currentUser.firstName + " " + currentUser.lastName}
+            <button onClick={handleLogout}>Logout</button>
+          </div>
+        ) : (
           <ul>
-            <li>
-              <a
-                href="https://www.facebook.com/tarik.dzambic"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <FontAwesomeIcon icon={faFacebookF} />
-              </a>
+            <li Style="margin-left: auto">
+              <a href="/login">Login</a>
             </li>
+            <li Style="color: #9b9b9b; text-decoration: none">or</li>
             <li>
-              <a
-                href="https://www.instagram.com/d_z_a_m_b_a/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <FontAwesomeIcon icon={faInstagram} />
-              </a>
-            </li>
-            <li>
-              <a href="https://twitter.com/" target="_blank" rel="noreferrer">
-                <FontAwesomeIcon icon={faTwitter} />
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://www.linkedin.com/in/tarikdzambic/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <FontAwesomeIcon icon={faLinkedinIn} />
-              </a>
+              <a href="/signup">Create an account</a>
             </li>
           </ul>
-        </div>
-        <div className="login-and-signup">
-          {this.state.currentUser != undefined ? (
-            <div className="navbar-username">
-              Hello,{" "}
-              {this.state.currentUser.first_name +
-                " " +
-                this.state.currentUser.last_name}
-              <button onClick={this.handleLogout}>Logout</button>
-            </div>
-          ) : (
-            <ul>
-              <li Style="margin-left: auto">
-                <a href="/login">Login</a>
-              </li>
-              <li Style="color: #9b9b9b; text-decoration: none">or</li>
-              <li>
-                <a href="/signup">Create an account</a>
-              </li>
-            </ul>
-          )}
-        </div>
+        )}
       </div>
-    );
-  }
+    </div>
+  );
 }
+
+export default NavbarBlack;

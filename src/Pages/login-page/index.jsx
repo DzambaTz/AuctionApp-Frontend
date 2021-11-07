@@ -1,49 +1,36 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import NavbarBlack from "../../Components/navbar-black";
 import NavbarWhite from "../../Components/navbar-white";
 import Footer from "../../Components/footer";
-import AuthService from "../../Auth/auth.service";
+import authService from "../../Auth/auth.service";
 
 import "./index.scss";
+import { useHistory } from "react-router";
 
-export default class LoginPage extends Component {
-  constructor(props) {
-    super(props);
-    this.handleLogin = this.handleLogin.bind(this);
-    this.onChangeEmail = this.onChangeEmail.bind(this);
-    this.onChangePassword = this.onChangePassword.bind(this);
+function LoginPage() {
+  let history = useHistory();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
 
-    this.state = {
-      email: "",
-      password: "",
-      loading: false,
-      message: "",
-    };
-  }
+  const onChangeEmail = (e) => {
+    setEmail(e.target.value);
+  };
 
-  onChangeEmail(e) {
-    this.setState({
-      email: e.target.value,
-    });
-  }
+  const onChangePassword = (e) => {
+    setPassword(e.target.value);
+  };
 
-  onChangePassword(e) {
-    this.setState({
-      password: e.target.value,
-    });
-  }
-
-  handleLogin(e) {
+  const handleLogin = (e) => {
     e.preventDefault();
 
-    this.setState({
-      message: "",
-      loading: true,
-    });
+    setMessage("");
+    setLoading(true);
 
-    AuthService.login(this.state.email, this.state.password).then(
+    authService.login(email, password).then(
       () => {
-        this.props.history.push("/");
+        history.push("/");
         window.location.reload();
       },
       (error) => {
@@ -54,64 +41,58 @@ export default class LoginPage extends Component {
           error.message ||
           error.toString();
 
-        this.setState({
-          loading: false,
-          message: resMessage,
-        });
+        setMessage(resMessage);
+        setLoading(false);
       }
     );
 
-    this.setState({
-      loading: false,
-    });
-  }
+    setLoading(false);
+  };
 
-  render() {
-    return (
-      <div>
-        <NavbarBlack />
-        <NavbarWhite />
-        <div className="login-banner">Login</div>
-        <form className="login-form" onSubmit={this.handleLogin}>
-          <h1>LOGIN</h1>
-          <label htmlFor="login-email">Enter Email</label>
-          <br />
-          <input
-            type="email"
-            name="login-email"
-            id="login-email"
-            autoComplete="off"
-            placeholder="Email"
-            value={this.state.email}
-            onChange={this.onChangeEmail}
-            required
-          />
-          <br />
-          <label htmlFor="login-password">Password</label>
-          <br />
-          <input
-            type="password"
-            name="login-password"
-            id="login-password"
-            placeholder="Password"
-            Style="margin-bottom: 5px;"
-            value={this.state.password}
-            onChange={(this, this.onChangePassword)}
-            required
-          />
-          <br />
-          <input type="checkbox" name="login-remember" id="login-remember" />
-          <label htmlFor="login-remember" Style="margin-left: 5px">
-            Remember me
-          </label>{" "}
-          <br />
-          <button type="submit">LOGIN</button>
-          {this.state.message && (
-            <div className="login-message">{this.state.message}</div>
-          )}
-        </form>
-        <Footer />
-      </div>
-    );
-  }
+  return (
+    <div>
+      <NavbarBlack />
+      <NavbarWhite />
+      <div className="login-banner">Login</div>
+      <form className="login-form" onSubmit={handleLogin}>
+        <h1>LOGIN</h1>
+        <label htmlFor="login-email">Enter Email</label>
+        <br />
+        <input
+          type="email"
+          name="login-email"
+          id="login-email"
+          autoComplete="off"
+          placeholder="Email"
+          value={email}
+          onChange={onChangeEmail}
+          required
+        />
+        <br />
+        <label htmlFor="login-password">Password</label>
+        <br />
+        <input
+          type="password"
+          name="login-password"
+          id="login-password"
+          placeholder="Password"
+          Style="margin-bottom: 5px;"
+          value={password}
+          onChange={onChangePassword}
+          required
+        />
+        <br />
+        <input type="checkbox" name="login-remember" id="login-remember" />
+        <label htmlFor="login-remember" Style="margin-left: 5px">
+          Remember me
+        </label>{" "}
+        <br />
+        <button type="submit">LOGIN</button>
+        {message && !loading && <div className="login-message">{message}</div>}
+      </form>
+      <Footer />
+    </div>
+  );
 }
+
+export default LoginPage;

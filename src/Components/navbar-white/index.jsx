@@ -20,7 +20,7 @@ const NavbarWhite = (props) => {
         </button>
       </div>
       <div className="nav-buttons">
-        {props.page == "home" ? (
+        {props.page === "home" ? (
           <a
             Style="margin-left: auto; color: #8367d8; font-weight: 700;"
             href="/"
@@ -32,14 +32,14 @@ const NavbarWhite = (props) => {
             HOME
           </a>
         )}
-        {props.page == "shop" ? (
+        {props.page === "shop" ? (
           <a Style="color: #8367d8;font-weight: 700;" href="/shop">
             SHOP
           </a>
         ) : (
           <a href="/shop">SHOP</a>
         )}
-        {props.page == "account" ? (
+        {props.page === "account" ? (
           <a
             Style="color: #8367d8;font-weight: 700;margin-right: 30%;"
             href="/shop"
