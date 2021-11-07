@@ -33,7 +33,7 @@ export default class NavbarBlack extends Component {
   handleLogout(e) {
     e.preventDefault();
 
-    AuthService.logout();
+    AuthService.logout(this.state.currentUser.id);
     window.location.reload();
   }
 

@@ -17,8 +17,15 @@ class AuthService {
       });
   }
 
-  logout() {
+  logout(userId) {
     localStorage.removeItem("user");
+    axios
+      .post(API_URL + "logout", {
+        userId,
+      })
+      .then((response) => {
+        return response.data;
+      });
   }
 
   register(first_name, last_name, email, password) {
