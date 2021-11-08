@@ -1,11 +1,11 @@
 @import "../../Helpers/constants.scss";
 
 .login-banner {
-  background-color: $banner-color;
+  background-color: $white1;
   height: 60px;
   font-family: $main-font;
   font-size: 16px;
-  color: $dark-gray;
+  color: $gray0;
   font-weight: 700;
   line-height: 60px;
   padding-left: 8%;
@@ -14,7 +14,7 @@
 .login-form {
   width: 30%;
   height: 750px;
-  border: solid 1.5px $dark-white;
+  border: solid 1.5px $white0;
   margin: auto;
   margin-top: 16px;
   margin-bottom: 50px;
@@ -40,8 +40,8 @@
     width: 100%;
     box-sizing: border-box;
     padding: 18px 0px 18px 24px;
-    background-color: $banner-color;
-    border: solid 1px $dark-white;
+    background-color: $white1;
+    border: solid 1px $white0;
     font-family: $main-font;
     font-size: 18px;
   }
@@ -70,7 +70,7 @@
     background-color: $purple;
     color: white;
     font-size: 18px;
-    box-shadow: 3.5px 3.5px $dark-white;
+    box-shadow: 3.5px 3.5px $white0;
   }
   button:hover {
     background: darken($purple, 7%);
@@ -81,7 +81,7 @@
   margin-top: 32px;
   height: 50px;
   width: 100%;
-  color: $dark-gray;
+  color: $gray0;
   background-color: rgba($color: #ff0f0f, $alpha: 0.2);
   font-family: $main-font;
   font-weight: 700;

@@ -6,12 +6,12 @@ import "./index.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import featuredShoe from "../../Assets/Images/featured-shoe.jpg";
-import cardImage from "../../Assets/Images/card-image.png";
+import cardImage1 from "../../Assets/Images/card-image-1.png";
+import cardImage2 from "../../Assets/Images/card-image-2.png";
 import ItemCard from "../../Components/item-card";
 
-import { Row, Col } from "react-simple-flex-grid";
-import "react-simple-flex-grid/lib/main.css";
 import { useState } from "react";
+import GridView from "../../Components/grid-view";
 
 const LandingPage = () => {
   const [gridTab, setGridTab] = useState("new");
@@ -106,34 +106,29 @@ const LandingPage = () => {
         </li>
         <hr />
       </ul>
-      <Row className="row" justify="center">
-        <Col className="column-item" span={3}>
-          <ItemCard image={cardImage} title="Shoe Collection" price="59.00" />
-        </Col>
-        <Col className="column-item" span={3}>
-          <ItemCard image={cardImage} title="Shoe Collection" price="59.00" />
-        </Col>
-        <Col className="column-item" span={3}>
-          <ItemCard image={cardImage} title="Shoe Collection" price="59.00" />
-        </Col>
-        <Col className="column-item" span={3}>
-          <ItemCard image={cardImage} title="Shoe Collection" price="59.00" />
-        </Col>
-      </Row>
-      <Row className="row" justify="center" Style="margin-bottom: 100px">
-        <Col className="column-item" span={3}>
-          <ItemCard image={cardImage} title="Shoe Collection" price="59.00" />
-        </Col>
-        <Col className="column-item" span={3}>
-          <ItemCard image={cardImage} title="Shoe Collection" price="59.00" />
-        </Col>
-        <Col className="column-item" span={3}>
-          <ItemCard image={cardImage} title="Shoe Collection" price="59.00" />
-        </Col>
-        <Col className="column-item" span={3}>
-          <ItemCard image={cardImage} title="Shoe Collection" price="59.00" />
-        </Col>
-      </Row>
+      {gridTab === "new" ? (
+        <GridView>
+          <ItemCard image={cardImage1} title="Shoe Collection" price="59.00" />
+          <ItemCard image={cardImage1} title="Shoe Collection" price="59.00" />
+          <ItemCard image={cardImage1} title="Shoe Collection" price="59.00" />
+          <ItemCard image={cardImage1} title="Shoe Collection" price="59.00" />
+          <ItemCard image={cardImage1} title="Shoe Collection" price="59.00" />
+          <ItemCard image={cardImage1} title="Shoe Collection" price="59.00" />
+          <ItemCard image={cardImage1} title="Shoe Collection" price="59.00" />
+          <ItemCard image={cardImage1} title="Shoe Collection" price="59.00" />
+        </GridView>
+      ) : (
+        <GridView>
+          <ItemCard image={cardImage2} title="Shoe Collection" price="59.00" />
+          <ItemCard image={cardImage2} title="Shoe Collection" price="59.00" />
+          <ItemCard image={cardImage2} title="Shoe Collection" price="59.00" />
+          <ItemCard image={cardImage2} title="Shoe Collection" price="59.00" />
+          <ItemCard image={cardImage2} title="Shoe Collection" price="59.00" />
+          <ItemCard image={cardImage2} title="Shoe Collection" price="59.00" />
+          <ItemCard image={cardImage2} title="Shoe Collection" price="59.00" />
+          <ItemCard image={cardImage2} title="Shoe Collection" price="59.00" />
+        </GridView>
+      )}
       <Footer />
     </div>
   );
