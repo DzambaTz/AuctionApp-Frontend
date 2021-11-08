@@ -7,11 +7,23 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import featuredShoe from "../../Assets/Images/featured-shoe.jpg";
 import cardImage from "../../Assets/Images/card-image.png";
+import ItemCard from "../../Components/item-card";
 
 import { Row, Col } from "react-simple-flex-grid";
 import "react-simple-flex-grid/lib/main.css";
+import { useState } from "react";
 
 const LandingPage = () => {
+  const [gridTab, setGridTab] = useState("new");
+
+  const setTabNew = () => {
+    setGridTab("new");
+  };
+
+  const setTabLast = () => {
+    setGridTab("last");
+  };
+
   return (
     <div>
       <NavbarBlack />
@@ -71,96 +83,55 @@ const LandingPage = () => {
         </div>
         <div Style="clear: both"></div>
       </div>
+      <ul className="landing-grid-tabs">
+        <li>
+          <button
+            onClick={setTabNew}
+            className={
+              gridTab === "new" ? "no-border selected-tab" : "no-border"
+            }
+          >
+            New Arrivals
+          </button>
+        </li>
+        <li>
+          <button
+            onClick={setTabLast}
+            className={
+              gridTab === "last" ? "no-border selected-tab" : "no-border"
+            }
+          >
+            Last Chance
+          </button>
+        </li>
+        <hr />
+      </ul>
       <Row className="row" justify="center">
         <Col className="column-item" span={3}>
-          <div className="card-item">
-            <a href="/about">
-              <img src={cardImage} alt="" />
-              <h1>Shoe Collection</h1>
-              <h2>
-                Start from <span>$59.00</span>
-              </h2>
-            </a>
-          </div>
+          <ItemCard image={cardImage} title="Shoe Collection" price="59.00" />
         </Col>
         <Col className="column-item" span={3}>
-          <div className="card-item">
-            <a href="/about">
-              <img src={cardImage} alt="" />
-              <h1>Shoe Collection</h1>
-              <h2>
-                Start from <span>$59.00</span>
-              </h2>
-            </a>
-          </div>
+          <ItemCard image={cardImage} title="Shoe Collection" price="59.00" />
         </Col>
         <Col className="column-item" span={3}>
-          <div className="card-item">
-            <a href="/about">
-              <img src={cardImage} alt="" />
-              <h1>Shoe Collection</h1>
-              <h2>
-                Start from <span>$59.00</span>
-              </h2>
-            </a>
-          </div>
+          <ItemCard image={cardImage} title="Shoe Collection" price="59.00" />
         </Col>
         <Col className="column-item" span={3}>
-          <div className="card-item">
-            <a href="/about">
-              <img src={cardImage} alt="" />
-              <h1>Shoe Collection</h1>
-              <h2>
-                Start from <span>$59.00</span>
-              </h2>
-            </a>
-          </div>
+          <ItemCard image={cardImage} title="Shoe Collection" price="59.00" />
         </Col>
       </Row>
       <Row className="row" justify="center" Style="margin-bottom: 100px">
         <Col className="column-item" span={3}>
-          <div className="card-item">
-            <a href="/about">
-              <img src={cardImage} alt="" />
-              <h1>Shoe Collection</h1>
-              <h2>
-                Start from <span>$59.00</span>
-              </h2>
-            </a>
-          </div>
+          <ItemCard image={cardImage} title="Shoe Collection" price="59.00" />
         </Col>
         <Col className="column-item" span={3}>
-          <div className="card-item">
-            <a href="/about">
-              <img src={cardImage} alt="" />
-              <h1>Shoe Collection</h1>
-              <h2>
-                Start from <span>$59.00</span>
-              </h2>
-            </a>
-          </div>
+          <ItemCard image={cardImage} title="Shoe Collection" price="59.00" />
         </Col>
         <Col className="column-item" span={3}>
-          <div className="card-item">
-            <a href="/about">
-              <img src={cardImage} alt="" />
-              <h1>Shoe Collection</h1>
-              <h2>
-                Start from <span>$59.00</span>
-              </h2>
-            </a>
-          </div>
+          <ItemCard image={cardImage} title="Shoe Collection" price="59.00" />
         </Col>
         <Col className="column-item" span={3}>
-          <div className="card-item">
-            <a href="/about">
-              <img src={cardImage} alt="" />
-              <h1>Shoe Collection</h1>
-              <h2>
-                Start from <span>$59.00</span>
-              </h2>
-            </a>
-          </div>
+          <ItemCard image={cardImage} title="Shoe Collection" price="59.00" />
         </Col>
       </Row>
       <Footer />

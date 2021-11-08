@@ -19,13 +19,6 @@ class AuthService {
       userId: this.getCurrentUser().id,
     });
     localStorage.removeItem("user");
-    axios
-      .post(API_URL + "logout", {
-        userId,
-      })
-      .then((response) => {
-        return response.data;
-      });
   }
 
   register(firstName, lastName, email, password) {

@@ -3,7 +3,7 @@
 .landing-main {
   background-color: $banner-color;
   padding-top: 16px;
-  margin-bottom: 100px;
+  margin-bottom: 50px;
 }
 
 .categories {
@@ -98,37 +98,37 @@
   padding-left: 10px;
 }
 
-.card-item {
-  text-align: center;
-  font-family: $main-font;
-  h1 {
-    text-align: left;
-    padding-left: 15%;
-    margin-top: 12px;
-    margin-bottom: 0;
-    font-size: 24px;
-    color: $dark-gray;
-  }
-  h2 {
-    text-align: left;
-    padding-left: 15%;
-    margin-top: 8px;
-    font-size: 16px;
-    color: $light-gray;
-  }
-  span {
-    color: $purple;
-  }
-  a {
-    text-decoration: none;
-  }
-  a:hover {
-    background-color: $dark-white;
-    text-decoration: underline;
-  }
-}
-
 .row {
   width: 90%;
   margin: auto;
+}
+
+.landing-grid-tabs {
+  width: 83%;
+  list-style: none;
+  margin-left: 6%;
+  font-family: $main-font;
+  margin-bottom: 32px;
+  li {
+    display: inline;
+  }
+  button {
+    font-family: $main-font;
+    background: none;
+    cursor: pointer;
+    padding-bottom: 16px;
+    padding-right: 60px;
+    font-size: 20px;
+    margin-bottom: -11px;
+  }
+}
+
+.no-border {
+  border: 0;
+}
+
+.selected-tab {
+  border-bottom: solid 3px $purple;
+  font-size: 24px;
+  font-weight: 700;
 }
