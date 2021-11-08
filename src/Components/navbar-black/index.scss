@@ -83,3 +83,24 @@
     text-decoration: none;
   }
 }
+
+.navbar-username {
+  color: $light-gray;
+  padding-right: 16%;
+  text-align: right;
+  line-height: 32px;
+  font-family: $main-font;
+  button {
+    margin-left: 15px;
+    background-color: transparent;
+    color: $light-gray;
+    border: solid 1px $light-gray;
+    font-family: $main-font;
+    font-size: 14px;
+  }
+  button:hover {
+    background-color: $light-gray;
+    color: $dark-gray;
+    cursor: pointer;
+  }
+}

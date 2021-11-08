@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./index.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -8,7 +8,22 @@ import {
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 
-const NavbarBlack = () => {
+import authService from "../../Auth/auth.service";
+
+function NavbarBlack() {
+  const [currentUser, setCurrentUser] = useState(undefined);
+
+  useEffect(() => {
+    setCurrentUser(authService.getCurrentUser());
+  }, []);
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+
+    authService.logout();
+    setCurrentUser(undefined);
+  };
+
   return (
     <div className="navbar-body">
       <div className="social-media">
@@ -48,18 +63,25 @@ const NavbarBlack = () => {
         </ul>
       </div>
       <div className="login-and-signup">
-        <ul>
-          <li Style="margin-left: auto">
-            <a href="/login">Login</a>
-          </li>
-          <li Style="color: #9b9b9b; text-decoration: none">or</li>
-          <li>
-            <a href="/signup">Create an account</a>
-          </li>
-        </ul>
+        {currentUser != undefined ? (
+          <div className="navbar-username">
+            Hello, {currentUser.firstName + " " + currentUser.lastName}
+            <button onClick={handleLogout}>Logout</button>
+          </div>
+        ) : (
+          <ul>
+            <li Style="margin-left: auto">
+              <a href="/login">Login</a>
+            </li>
+            <li Style="color: #9b9b9b; text-decoration: none">or</li>
+            <li>
+              <a href="/signup">Create an account</a>
+            </li>
+          </ul>
+        )}
       </div>
     </div>
   );
-};
+}
 
 export default NavbarBlack;
