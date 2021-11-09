@@ -6,9 +6,8 @@ import "./index.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import featuredShoe from "../../Assets/Images/featured-shoe.jpg";
-import cardImage1 from "../../Assets/Images/card-image-1.png";
-import cardImage2 from "../../Assets/Images/card-image-2.png";
 import ItemCard from "../../Components/item-card";
+import testData from "../../Helpers/test-data";
 
 import { useState } from "react";
 import GridView from "../../Components/grid-view";
@@ -25,43 +24,20 @@ const LandingPage = () => {
   };
 
   return (
-    <div>
+    <div className="landing-page">
       <NavbarBlack />
       <NavbarWhite page="home" />
       <div className="landing-main">
         <div className="categories">
           <h2>CATEGORIES</h2>
           <ul>
-            <li>
-              <a href="/shop/fashion">Fashion</a>
-            </li>
-            <li>
-              <a href="/shop/accessories">Accessories</a>
-            </li>
-            <li>
-              <a href="/shop/jewlery">Jewlery</a>
-            </li>
-            <li>
-              <a href="/shop/shoes">Shoes</a>
-            </li>
-            <li>
-              <a href="/shop/sports">Sportswear</a>
-            </li>
-            <li>
-              <a href="/shop/home">Home</a>
-            </li>
-            <li>
-              <a href="/shop/electronics">Electronics</a>
-            </li>
-            <li>
-              <a href="/shop/mobile">Mobile</a>
-            </li>
-            <li>
-              <a href="/shop/computer">Computer</a>
-            </li>
-            <li>
-              <a href="/shop">All Categories</a>
-            </li>
+            {testData.categories.map((category) => {
+              return (
+                <li>
+                  <a href={category.path}>{category.name}</a>
+                </li>
+              );
+            })}
           </ul>
         </div>
         <div className="featured-item">
@@ -108,25 +84,27 @@ const LandingPage = () => {
       </ul>
       {gridTab === "new" ? (
         <GridView>
-          <ItemCard image={cardImage1} title="Shoe Collection" price="59.00" />
-          <ItemCard image={cardImage1} title="Shoe Collection" price="59.00" />
-          <ItemCard image={cardImage1} title="Shoe Collection" price="59.00" />
-          <ItemCard image={cardImage1} title="Shoe Collection" price="59.00" />
-          <ItemCard image={cardImage1} title="Shoe Collection" price="59.00" />
-          <ItemCard image={cardImage1} title="Shoe Collection" price="59.00" />
-          <ItemCard image={cardImage1} title="Shoe Collection" price="59.00" />
-          <ItemCard image={cardImage1} title="Shoe Collection" price="59.00" />
+          {testData.newArrivals.map((item) => {
+            return (
+              <ItemCard
+                image={item.image}
+                title={item.title}
+                price={item.price}
+              />
+            );
+          })}
         </GridView>
       ) : (
         <GridView>
-          <ItemCard image={cardImage2} title="Shoe Collection" price="59.00" />
-          <ItemCard image={cardImage2} title="Shoe Collection" price="59.00" />
-          <ItemCard image={cardImage2} title="Shoe Collection" price="59.00" />
-          <ItemCard image={cardImage2} title="Shoe Collection" price="59.00" />
-          <ItemCard image={cardImage2} title="Shoe Collection" price="59.00" />
-          <ItemCard image={cardImage2} title="Shoe Collection" price="59.00" />
-          <ItemCard image={cardImage2} title="Shoe Collection" price="59.00" />
-          <ItemCard image={cardImage2} title="Shoe Collection" price="59.00" />
+          {testData.lastChance.map((item) => {
+            return (
+              <ItemCard
+                image={item.image}
+                title={item.title}
+                price={item.price}
+              />
+            );
+          })}
         </GridView>
       )}
       <Footer />

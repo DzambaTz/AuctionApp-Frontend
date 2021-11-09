@@ -1,5 +1,9 @@
 @import "../../Helpers/constants.scss";
 
+.landing-page {
+  font-family: $main-font;
+}
+
 .landing-main {
   background-color: $white1;
   padding-top: 16px;
@@ -12,7 +16,6 @@
   box-sizing: border-box;
   width: 33%;
   padding-left: 8%;
-  font-family: $main-font;
   h2 {
     padding-left: 16px;
     color: $purple;
@@ -37,10 +40,10 @@
   }
   li {
     width: 65%;
-    border-bottom: solid 1px #d8d8d8;
+    border-bottom: solid 1px $gray2;
   }
   a:hover {
-    background-color: #d8d8d8;
+    background-color: $gray2;
   }
 }
 
@@ -49,7 +52,6 @@
   float: left;
   width: 66%;
   box-sizing: border-box;
-  font-family: $main-font;
   font-weight: 400;
   color: $gray1;
   text-align: justify;
@@ -107,7 +109,6 @@
   width: 84%;
   list-style: none;
   margin-left: 5.75%;
-  font-family: $main-font;
   margin-bottom: 32px;
   li {
     display: inline;
