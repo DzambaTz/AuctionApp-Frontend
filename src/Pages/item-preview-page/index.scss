@@ -1,0 +1,97 @@
+@import "../../Helpers/constants.scss";
+
+.item-preview-page {
+  font-family: $main-font;
+}
+
+.item-images {
+  width: 50%;
+  box-sizing: border-box;
+  float: left;
+  height: 100%;
+  //border: solid 1px red;
+}
+
+.item-info {
+  width: 50%;
+  box-sizing: border-box;
+  float: left;
+  height: 100%;
+  //border: solid 1px green;
+  padding-right: 8%;
+  padding-top: 16px;
+  h1 {
+    font-size: 32px;
+    font-weight: 400;
+  }
+  h4 {
+    font-weight: 300;
+    font-size: 16px;
+    color: $purple;
+    margin-bottom: 28px;
+  }
+  span {
+    color: $purple;
+    font-weight: 700;
+  }
+}
+
+.item-main {
+  height: 1000px;
+}
+
+.auction-info {
+  border: solid 1px $gray3;
+  max-width: 35%;
+  height: 125px;
+  padding-left: 24px;
+  margin-bottom: 60px;
+  h3 {
+    font-weight: 300;
+    font-size: 16px;
+  }
+  span {
+    color: $purple;
+    font-weight: 700;
+  }
+}
+
+.bidding-form {
+  input {
+    border: solid 1px $gray3;
+    line-height: 54px;
+    padding-left: 24px;
+    width: 35%;
+    margin-right: 10%;
+  }
+  input:focus {
+    outline: solid 1px $gray0;
+  }
+  ::placeholder {
+    color: $gray3;
+    font-size: 16px;
+    font-family: $main-font;
+    font-weight: 300;
+  }
+  button {
+    vertical-align: top;
+    box-sizing: border-box;
+    font-family: $main-font;
+    background: none;
+    border: solid 3px $purple;
+    text-align: center;
+    color: black;
+    padding-top: 13px;
+    padding-bottom: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 18px;
+    height: 58px;
+    padding-left: 25px;
+    padding-right: 35px;
+  }
+  button:hover {
+    background-color: $purple;
+    color: white;
+  }
+}

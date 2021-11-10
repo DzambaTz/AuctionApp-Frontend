@@ -1,18 +1,6 @@
 @import "../../Helpers/constants.scss";
 
-.about-banner {
-  background-color: $white1;
-  height: 60px;
-  font-family: $main-font;
-  font-size: 16px;
-  color: $gray0;
-  font-weight: 700;
-  line-height: 60px;
-  padding-left: 8%;
-}
-
 .about-body {
-  margin-bottom: 100px;
   height: 900px;
   h1 {
     font-size: 32px;
@@ -28,7 +16,7 @@
   font-family: $main-font;
   font-size: 16px;
   padding-left: 8%;
-  width: 50%;
+  width: 55%;
   text-align: justify;
   box-sizing: border-box;
   height: 100%;
@@ -39,7 +27,7 @@
   padding-top: 6%;
   display: inline;
   float: left;
-  width: 50%;
+  width: 45%;
   height: 100%;
   vertical-align: top;
   box-sizing: border-box;
@@ -47,7 +35,7 @@
   padding-left: 2%;
   img {
     padding-top: 3%;
-    padding-right: 25px;
+    padding-right: 30px;
     max-width: 31%;
     height: auto;
   }

@@ -5,13 +5,18 @@ import "./index.scss";
 import NavbarBlack from "../../Components/navbar-black";
 import NavbarWhite from "../../Components/navbar-white";
 import Footer from "../../Components/footer";
+import Banner from "../../Components/banner";
 
 const TermsPage = () => {
   return (
     <div>
       <NavbarBlack />
-      <NavbarWhite />
-      <div className="terms-banner">Terms and Conditions</div>
+      <NavbarWhite page="shop" />
+      <Banner
+        title="Terms and Conditions"
+        base="Shop"
+        current="Terms and conditions"
+      />
       <div className="terms-body">
         <h1>Terms and Conditions for Auction</h1>
 

@@ -90,6 +90,7 @@ const LandingPage = () => {
                 image={item.image}
                 title={item.title}
                 price={item.price}
+                link={item.link}
               />
             );
           })}
@@ -102,6 +103,7 @@ const LandingPage = () => {
                 image={item.image}
                 title={item.title}
                 price={item.price}
+                link={item.link}
               />
             );
           })}

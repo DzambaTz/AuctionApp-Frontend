@@ -49,41 +49,49 @@ const newArrivals = [
     image: cardImage1,
     title: "Shoe collection",
     price: "59.00",
+    link: "/item/preview/1",
   },
   {
     image: cardImage1,
     title: "Shoe collection",
     price: "59.00",
+    link: "/item/preview/1",
   },
   {
     image: cardImage1,
     title: "Shoe collection",
     price: "59.00",
+    link: "/item/preview/1",
   },
   {
     image: cardImage1,
     title: "Shoe collection",
     price: "59.00",
+    link: "/item/preview/1",
   },
   {
     image: cardImage1,
     title: "Shoe collection",
     price: "59.00",
+    link: "/item/preview/1",
   },
   {
     image: cardImage1,
     title: "Shoe collection",
     price: "59.00",
+    link: "/item/preview/1",
   },
   {
     image: cardImage1,
     title: "Shoe collection",
     price: "59.00",
+    link: "/item/preview/1",
   },
   {
     image: cardImage1,
     title: "Shoe collection",
     price: "59.00",
+    link: "/item/preview/1",
   },
 ];
 
@@ -92,41 +100,49 @@ const lastChance = [
     image: cardImage2,
     title: "Shoe collection",
     price: "59.00",
+    link: "/item/preview/1",
   },
   {
     image: cardImage2,
     title: "Shoe collection",
     price: "59.00",
+    link: "/item/preview/1",
   },
   {
     image: cardImage2,
     title: "Shoe collection",
     price: "59.00",
+    link: "/item/preview/1",
   },
   {
     image: cardImage2,
     title: "Shoe collection",
     price: "59.00",
+    link: "/item/preview/1",
   },
   {
     image: cardImage2,
     title: "Shoe collection",
     price: "59.00",
+    link: "/item/preview/1",
   },
   {
     image: cardImage2,
     title: "Shoe collection",
     price: "59.00",
+    link: "/item/preview/1",
   },
   {
     image: cardImage2,
     title: "Shoe collection",
     price: "59.00",
+    link: "/item/preview/1",
   },
   {
     image: cardImage2,
     title: "Shoe collection",
     price: "59.00",
+    link: "/item/preview/1",
   },
 ];
 

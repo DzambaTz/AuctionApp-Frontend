@@ -4,6 +4,7 @@ import "./index.scss";
 import NavbarBlack from "../../Components/navbar-black";
 import NavbarWhite from "../../Components/navbar-white";
 import Footer from "../../Components/footer";
+import Banner from "../../Components/banner";
 
 import aboutImg1 from "../../Assets/Images/about-1.png";
 import aboutImg2 from "../../Assets/Images/about-2.png";
@@ -13,8 +14,8 @@ const AboutUsPage = () => {
   return (
     <div>
       <NavbarBlack />
-      <NavbarWhite />
-      <div className="about-banner">About us</div>
+      <NavbarWhite page="shop" />
+      <Banner title="About us" base="Shop" current="About us" />
       <div className="about-body">
         <div className="about-text">
           <h1>About us</h1>
@@ -61,7 +62,7 @@ const AboutUsPage = () => {
           rutrum, venenatis lacus ut, ornare lectus.
         </div>
         <div className="about-images">
-          <img Style="max-width: 100%" src={aboutImg1} alt="" /> <br />
+          <img Style="max-width: 66%" src={aboutImg1} alt="" /> <br />
           <img src={aboutImg2} alt="" />
           <img src={aboutImg3} alt="" />
         </div>
