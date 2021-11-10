@@ -1,11 +1,11 @@
 @import "../../Helpers/constants.scss";
 
 .about-banner {
-  background-color: $banner-color;
+  background-color: $white1;
   height: 60px;
   font-family: $main-font;
   font-size: 16px;
-  color: $dark-gray;
+  color: $gray0;
   font-weight: 700;
   line-height: 60px;
   padding-left: 8%;
@@ -32,7 +32,7 @@
   text-align: justify;
   box-sizing: border-box;
   height: 100%;
-  color: $light-gray;
+  color: $gray1;
 }
 
 .about-images {

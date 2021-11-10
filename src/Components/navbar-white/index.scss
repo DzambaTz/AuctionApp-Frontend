@@ -44,7 +44,7 @@
     margin-left: -40px;
   }
   ::placeholder {
-    color: $light-gray;
+    color: $gray1;
     opacity: 0.6;
   }
 }
@@ -64,11 +64,11 @@
     padding-left: 35px;
   }
   a:link {
-    color: $dark-gray;
+    color: $gray0;
     text-decoration: none;
   }
   a:visited {
-    color: $dark-gray;
+    color: $gray0;
     text-decoration: none;
   }
 }

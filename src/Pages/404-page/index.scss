@@ -8,7 +8,7 @@
     font-family: $main-font;
     color: $purple;
     font-size: 192px;
-    text-shadow: 5px 5px $dark-white;
+    text-shadow: 5px 5px $white0;
     margin-top: 70px;
     font-weight: 400;
   }
@@ -20,21 +20,21 @@
   }
   a {
     font-family: $main-font;
-    color: $dark-gray;
+    color: $gray0;
     border: solid 3px $purple;
     padding: 15px 25px;
     font-size: 18px;
     font-weight: 700;
   }
   a:link {
-    color: $dark-gray;
+    color: $gray0;
     text-decoration: none;
   }
   a:visited {
-    color: $dark-gray;
+    color: $gray0;
     text-decoration: none;
   }
   a:hover {
-    box-shadow: 3px 3px $dark-white;
+    box-shadow: 3px 3px $white0;
   }
 }

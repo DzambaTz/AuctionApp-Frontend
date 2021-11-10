@@ -1,0 +1,40 @@
+@import "../../Helpers/constants.scss";
+
+.item-card {
+  text-align: center;
+  font-family: $main-font;
+  margin-bottom: 32px;
+  h1 {
+    text-align: left;
+    padding-left: 15%;
+    margin-top: 12px;
+    margin-bottom: 0;
+    font-size: 24px;
+    color: $gray0;
+  }
+  h2 {
+    text-align: left;
+    padding-left: 15%;
+    margin-top: 8px;
+    font-size: 16px;
+    color: $gray1;
+  }
+  span {
+    color: $purple;
+  }
+  a {
+    text-decoration: none;
+  }
+  a:visited {
+    text-decoration: none;
+    color: $gray1;
+  }
+  a:hover {
+    background-color: $white0;
+    text-decoration: underline;
+  }
+  img {
+    height: auto;
+    max-width: 100%;
+  }
+}

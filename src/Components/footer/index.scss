@@ -3,7 +3,7 @@
 .footer {
   position: absolute;
   bottom: 0;
-  background-color: $dark-gray;
+  background-color: $gray0;
   height: 356px;
   width: 100%;
   margin-top: 100px;
@@ -15,7 +15,7 @@
   box-sizing: border-box;
   float: left;
   height: 100%;
-  color: $light-gray;
+  color: $gray1;
   font-family: $main-font;
   font-size: 16px;
   font-weight: 700;
@@ -32,11 +32,11 @@
     }
   }
   a:link {
-    color: $dark-white;
+    color: $white0;
     text-decoration: none;
   }
   a:visited {
-    color: $dark-white;
+    color: $white0;
     text-decoration: none;
   }
 }
@@ -47,7 +47,7 @@
   box-sizing: border-box;
   float: left;
   height: 100%;
-  color: $light-gray;
+  color: $gray1;
   font-family: $main-font;
   font-size: 16px;
   font-weight: 700;
@@ -55,11 +55,11 @@
   padding-top: 31px;
   ul {
     list-style: none;
-    color: $dark-white;
+    color: $white0;
     padding: 0;
   }
   a {
-    color: $dark-white;
+    color: $white0;
     text-decoration: none;
   }
   a:hover {
@@ -74,16 +74,16 @@
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    background-color: $light-gray;
+    background-color: $gray1;
     text-align: center;
     line-height: 30px;
   }
   a:link {
-    color: $dark-gray;
+    color: $gray0;
     text-decoration: none;
   }
   a:visited {
-    color: $dark-gray;
+    color: $gray0;
     text-decoration: none;
   }
   a:hover {

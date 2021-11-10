@@ -1,7 +1,7 @@
 @import "../../Helpers/constants.scss";
 
 .navbar-body {
-  background-color: $dark-gray;
+  background-color: $gray0;
   height: 40px;
 }
 
@@ -33,16 +33,16 @@
     width: 25px;
     height: 25px;
     border-radius: 50%;
-    background-color: $light-gray;
+    background-color: $gray1;
     text-align: center;
     line-height: 27px;
   }
   a:link {
-    color: $dark-gray;
+    color: $gray0;
     text-decoration: none;
   }
   a:visited {
-    color: $dark-gray;
+    color: $gray0;
     text-decoration: none;
   }
   a:hover {
@@ -85,7 +85,7 @@
 }
 
 .navbar-username {
-  color: $light-gray;
+  color: $gray1;
   padding-right: 16%;
   text-align: right;
   line-height: 32px;
@@ -93,14 +93,14 @@
   button {
     margin-left: 15px;
     background-color: transparent;
-    color: $light-gray;
-    border: solid 1px $light-gray;
+    color: $gray1;
+    border: solid 1px $gray1;
     font-family: $main-font;
     font-size: 14px;
   }
   button:hover {
-    background-color: $light-gray;
-    color: $dark-gray;
+    background-color: $gray1;
+    color: $gray0;
     cursor: pointer;
   }
 }

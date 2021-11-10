@@ -1,11 +1,11 @@
 @import "../../Helpers/constants.scss";
 
 .terms-banner {
-  background-color: $banner-color;
+  background-color: $white1;
   height: 60px;
   font-family: $main-font;
   font-size: 16px;
-  color: $dark-gray;
+  color: $gray0;
   font-weight: 700;
   line-height: 60px;
   padding-left: 8%;
@@ -20,7 +20,7 @@
   font-weight: 400;
   text-align: justify;
   p {
-    color: $light-gray;
+    color: $gray1;
   }
   h2 {
     font-size: 20px;
