@@ -1,7 +1,10 @@
 .grid-view {
   display: grid;
-  grid-template-columns: repeat(4, auto);
+  grid-template-columns: repeat(4, 25%);
   width: 90.5%;
   margin-left: 5%;
   margin-bottom: 50px;
+  img {
+    max-width: 70%;
+  }
 }
