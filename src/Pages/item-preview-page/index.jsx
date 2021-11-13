@@ -8,16 +8,23 @@ import "./index.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import testData from "../../Helpers/test-data";
-import userService from "../../Auth/user.service";
 import durationToTime from "../../Helpers/durationToTime";
 import authService from "../../Auth/auth.service";
+import itemService from "../../Services/item.service";
+import userService from "../../Services/user.service";
 
 function ItemPreviewPage() {
   const itemId = useParams().id;
-  userService.getItemData(itemId);
-  const [item, setItem] = useState(JSON.parse(localStorage.getItem("item")));
-  const [mainImage, setMainImage] = useState(testData.itemPreviewImages[0]);
-  const [timeLeft, setTimeLeft] = useState(durationToTime(item.endTime));
+  useEffect(() => {
+    itemService.getItemData(itemId).then((response) => {
+      setItem(response.body);
+      setTimeLeft(durationToTime(response.body.endTime));
+      setMainImage(response.body.itemImages[0].toString() + ".jpeg");
+    });
+  }, []);
+  const [item, setItem] = useState("");
+  const [mainImage, setMainImage] = useState("");
+  const [timeLeft, setTimeLeft] = useState("");
   const [bidAmount, setBidAmount] = useState("");
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
@@ -29,6 +36,7 @@ function ItemPreviewPage() {
   const placeBid = (e) => {
     e.preventDefault();
     if (bidAmount == "") {
+      setSuccessful(false);
       setMessage("Enter a valid bid amount!");
       return;
     }
@@ -42,18 +50,24 @@ function ItemPreviewPage() {
 
     userService.placeBid(itemId, bidAmount).then(
       (response) => {
-        setMessage(response.data.message);
-        setSuccessful(true);
-        setBidAmount("");
-        userService.getItemData(itemId).then(() => {
-          setItem(JSON.parse(localStorage.getItem("item")));
-        });
+        if (response.status == 200) {
+          setMessage(response.body.message);
+          setSuccessful(true);
+          setBidAmount("");
+          userService.getItemData(itemId).then((response) => {
+            setItem(response.body);
+          });
+        } else {
+          setBidAmount("");
+          setSuccessful(false);
+          setMessage(response.body.message);
+        }
       },
       (error) => {
         const resMessage =
           (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
+            error.response.body &&
+            error.response.body.message) ||
           error.message ||
           error.toString();
 
@@ -80,11 +94,16 @@ function ItemPreviewPage() {
       )}
       <div className="item-main">
         <div className="item-images">
-          <img src={mainImage} alt="" />
+          <img className="main-image" src={mainImage} alt="" />
           <div className="image-grid">
-            {testData.itemPreviewImages.map((image) => (
-              <img src={image} alt="" onClick={() => setMainImage(image)} />
-            ))}
+            {item &&
+              item.itemImages.map((image) => (
+                <img
+                  src={image + ".jpeg"}
+                  alt=""
+                  onClick={() => setMainImage(image + ".jpeg")}
+                />
+              ))}
           </div>
         </div>
         <div className="item-info">

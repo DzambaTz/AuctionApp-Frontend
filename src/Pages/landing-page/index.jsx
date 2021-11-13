@@ -11,9 +11,22 @@ import testData from "../../Helpers/test-data";
 
 import { useState } from "react";
 import GridView from "../../Components/grid-view";
+import { useEffect } from "react/cjs/react.development";
+import itemService from "../../Services/item.service";
 
 const LandingPage = () => {
+  useEffect(() => {
+    itemService.getNewArrivals().then((response) => {
+      setNewArrivals(response.body);
+    });
+    itemService.getLastChance().then((response) => {
+      setLastChance(response.body);
+    });
+  }, []);
+
   const [gridTab, setGridTab] = useState("new");
+  const [newArrivals, setNewArrivals] = useState("");
+  const [lastChance, setLastChance] = useState("");
 
   const setTabNew = () => {
     setGridTab("new");
@@ -84,29 +97,31 @@ const LandingPage = () => {
       </ul>
       {gridTab === "new" ? (
         <GridView>
-          {testData.newArrivals.map((item) => {
-            return (
-              <ItemCard
-                image={item.image}
-                title={item.title}
-                price={item.price}
-                link={item.link}
-              />
-            );
-          })}
+          {newArrivals &&
+            newArrivals.map((item) => {
+              return (
+                <ItemCard
+                  image={item.images[0] + ".jpeg"}
+                  title={item.name}
+                  price={item.start_price}
+                  link={"/item/preview/" + item.id}
+                />
+              );
+            })}
         </GridView>
       ) : (
         <GridView>
-          {testData.lastChance.map((item) => {
-            return (
-              <ItemCard
-                image={item.image}
-                title={item.title}
-                price={item.price}
-                link={item.link}
-              />
-            );
-          })}
+          {lastChance &&
+            lastChance.map((item) => {
+              return (
+                <ItemCard
+                  image={item.images[0] + ".jpeg"}
+                  title={item.name}
+                  price={item.start_price}
+                  link={"/item/preview/" + item.id}
+                />
+              );
+            })}
         </GridView>
       )}
       <Footer />

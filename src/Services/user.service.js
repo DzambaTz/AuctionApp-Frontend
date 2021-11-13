@@ -10,24 +10,11 @@ const getSellerContent = () => {
 };
 
 const getItemData = (itemId) => {
-  return api
-    .get("v1/item/" + itemId)
-    .then((response) => {
-      localStorage.setItem("item", JSON.stringify(response.data));
-    })
-    .catch((error) => {
-      localStorage.removeItem("item");
-    });
+  return api.get("v1/item/" + itemId);
 };
 
 const placeBid = (itemId, amount) => {
-  return api.post(
-    "v1/bid/place/" + itemId,
-    { amount: amount },
-    {
-      headers: authHeader(),
-    }
-  );
+  return api.post("v1/bid/place/" + itemId, { amount });
 };
 
 export default {
