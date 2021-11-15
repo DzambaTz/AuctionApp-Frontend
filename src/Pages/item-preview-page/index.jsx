@@ -123,7 +123,7 @@ function ItemPreviewPage() {
           {authService.getCurrentUser() && (
             <form className="bidding-form">
               <input
-                type="text"
+                type="number"
                 name="bid-amount"
                 id="bid-amount"
                 value={bidAmount}
@@ -132,7 +132,7 @@ function ItemPreviewPage() {
                 placeholder={
                   "Enter $" +
                   (item.highestBid == 0
-                    ? (item.startingPrice + 0.01).toFixed(2) + " or higher"
+                    ? item.startingPrice.toFixed(2) + " or higher"
                     : (item.highestBid + 0.01).toFixed(2) + " or higher")
                 }
               />
