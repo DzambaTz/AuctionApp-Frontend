@@ -3,6 +3,7 @@ import NavbarBlack from "../../Components/navbar-black";
 import NavbarWhite from "../../Components/navbar-white";
 import Footer from "../../Components/footer";
 import authService from "../../Auth/auth.service";
+import statusCodes from "../../Helpers/status-codes";
 
 import "./index.scss";
 import { useState } from "react/cjs/react.development";
@@ -38,17 +39,18 @@ function RegisterPage() {
     setSuccessful(false);
 
     authService.register(firstName, lastName, email, password).then(
-      (reponse) => {
-        setMessage(reponse.data.message);
-        setSuccessful(true);
+      (response) => {
+        if (response?.status == statusCodes.OK) {
+          setMessage(response?.body?.message);
+          setSuccessful(true);
+        } else {
+          setMessage(response?.body?.message);
+          setSuccessful(false);
+        }
       },
       (error) => {
         const resMessage =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
+          error?.response?.body?.message || error?.message || error.toString();
 
         setSuccessful(false);
         setMessage(resMessage);
