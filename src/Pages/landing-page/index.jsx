@@ -15,6 +15,10 @@ import { useEffect } from "react/cjs/react.development";
 import itemService from "../../Services/item.service";
 
 const LandingPage = () => {
+  const [gridTab, setGridTab] = useState("new");
+  const [newArrivals, setNewArrivals] = useState("");
+  const [lastChance, setLastChance] = useState("");
+
   useEffect(() => {
     itemService.getNewArrivals().then((response) => {
       setNewArrivals(response.body);
@@ -23,10 +27,6 @@ const LandingPage = () => {
       setLastChance(response.body);
     });
   }, []);
-
-  const [gridTab, setGridTab] = useState("new");
-  const [newArrivals, setNewArrivals] = useState("");
-  const [lastChance, setLastChance] = useState("");
 
   const setTabNew = () => {
     setGridTab("new");
@@ -103,7 +103,7 @@ const LandingPage = () => {
                 <ItemCard
                   image={item.images[0] + ".jpeg"}
                   title={item.name}
-                  price={item.start_price}
+                  price={item.startPrice}
                   link={"/item/preview/" + item.id}
                 />
               );
@@ -117,7 +117,7 @@ const LandingPage = () => {
                 <ItemCard
                   image={item.images[0] + ".jpeg"}
                   title={item.name}
-                  price={item.start_price}
+                  price={item.startPrice}
                   link={"/item/preview/" + item.id}
                 />
               );

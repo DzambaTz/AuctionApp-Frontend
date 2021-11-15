@@ -12,9 +12,17 @@ import durationToTime from "../../Helpers/durationToTime";
 import authService from "../../Auth/auth.service";
 import itemService from "../../Services/item.service";
 import userService from "../../Services/user.service";
+import statusCodes from "../../Helpers/status-codes";
 
 function ItemPreviewPage() {
   const itemId = useParams().id;
+  const [item, setItem] = useState("");
+  const [mainImage, setMainImage] = useState("");
+  const [timeLeft, setTimeLeft] = useState("");
+  const [bidAmount, setBidAmount] = useState("");
+  const [successful, setSuccessful] = useState(false);
+  const [message, setMessage] = useState("");
+
   useEffect(() => {
     itemService.getItemData(itemId).then((response) => {
       setItem(response.body);
@@ -22,12 +30,6 @@ function ItemPreviewPage() {
       setMainImage(response.body.itemImages[0].toString() + ".jpeg");
     });
   }, []);
-  const [item, setItem] = useState("");
-  const [mainImage, setMainImage] = useState("");
-  const [timeLeft, setTimeLeft] = useState("");
-  const [bidAmount, setBidAmount] = useState("");
-  const [successful, setSuccessful] = useState(false);
-  const [message, setMessage] = useState("");
 
   const setBidAmountValue = (e) => {
     setBidAmount(e.target.value);
@@ -50,7 +52,7 @@ function ItemPreviewPage() {
 
     userService.placeBid(itemId, bidAmount).then(
       (response) => {
-        if (response.status == 200) {
+        if (response?.status == statusCodes.OK) {
           setMessage(response.body.message);
           setSuccessful(true);
           setBidAmount("");
@@ -65,11 +67,7 @@ function ItemPreviewPage() {
       },
       (error) => {
         const resMessage =
-          (error.response &&
-            error.response.body &&
-            error.response.body.message) ||
-          error.message ||
-          error.toString();
+          error?.response?.body?.message || error?.message || error.toString();
 
         setBidAmount("");
         setSuccessful(false);
@@ -134,7 +132,7 @@ function ItemPreviewPage() {
                 placeholder={
                   "Enter $" +
                   (item.highestBid == 0
-                    ? (item.startingPrice + 0.01).toFixed(2)
+                    ? (item.startingPrice + 0.01).toFixed(2) + " or higher"
                     : (item.highestBid + 0.01).toFixed(2) + " or higher")
                 }
               />
