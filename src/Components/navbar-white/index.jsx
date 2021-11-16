@@ -48,7 +48,7 @@ const NavbarWhite = (props) => {
           </a>
         ) : (
           <a Style="margin-right: 30%;" href="/shop">
-            ACCOUNT
+            MY ACCOUNT
           </a>
         )}
       </div>

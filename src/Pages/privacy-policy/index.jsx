@@ -2,6 +2,7 @@ import React from "react";
 import NavbarBlack from "../../Components/navbar-black";
 import NavbarWhite from "../../Components/navbar-white";
 import Footer from "../../Components/footer";
+import Banner from "../../Components/banner";
 
 import "./index.scss";
 
@@ -9,8 +10,8 @@ const PrivacyPage = () => {
   return (
     <div>
       <NavbarBlack />
-      <NavbarWhite />
-      <div className="privacy-banner">Privacy policy</div>
+      <NavbarWhite page="shop" />
+      <Banner title="Privacy policy" base="Shop" current="Privacy policy" />
       <div className="privacy-body">
         <h1>Privacy policy</h1>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis consequat

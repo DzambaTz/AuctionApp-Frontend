@@ -7,10 +7,18 @@ class AuthService {
         password,
       })
       .then((response) => {
-        if (response.data.token) {
-          localStorage.setItem("user", JSON.stringify(response.data));
+        if (response?.body?.token) {
+          localStorage.setItem("user", JSON.stringify(response.body));
+          localStorage.setItem(
+            "accessToken",
+            JSON.stringify(response.body.token)
+          );
+          localStorage.setItem(
+            "refreshToken",
+            JSON.stringify(response.body.refreshToken)
+          );
         }
-        return response.data;
+        return response?.body;
       });
   }
 
@@ -33,6 +41,14 @@ class AuthService {
 
   getCurrentUser() {
     return JSON.parse(localStorage.getItem("user"));
+  }
+
+  getRefreshToken() {
+    return JSON.parse(localStorage.getItem("refreshToken"));
+  }
+
+  getAccessToken() {
+    return JSON.parse(localStorage.getItem("accessToken"));
   }
 }
 

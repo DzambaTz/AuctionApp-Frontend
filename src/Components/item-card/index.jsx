@@ -4,7 +4,7 @@ import "./index.scss";
 function ItemCard(props) {
   return (
     <div className="item-card">
-      <a href="/about">
+      <a href={props.link}>
         <img src={props.image} alt="" />
         <h1>{props.title}</h1>
         <h2>

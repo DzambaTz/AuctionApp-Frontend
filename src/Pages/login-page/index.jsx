@@ -35,11 +35,7 @@ function LoginPage() {
       },
       (error) => {
         const resMessage =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
+          error?.response?.body?.message || error?.message || error.toString();
 
         setMessage(resMessage);
         setLoading(false);
