@@ -34,10 +34,7 @@ function LoginPage() {
         window.location.reload();
       },
       (error) => {
-        const resMessage =
-          error?.response?.body?.message || error?.message || error.toString();
-
-        setMessage(resMessage);
+        setMessage("Invalid email or password");
         setLoading(false);
       }
     );
