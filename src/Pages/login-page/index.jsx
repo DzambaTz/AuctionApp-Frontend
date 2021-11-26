@@ -33,7 +33,7 @@ function LoginPage() {
         history.push("/");
         window.location.reload();
       },
-      (error) => {
+      () => {
         setMessage("Invalid email or password");
         setLoading(false);
       }
