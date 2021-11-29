@@ -96,7 +96,7 @@ const LandingPage = () => {
         <hr />
       </ul>
       {gridTab === "new" ? (
-        <GridView>
+        <GridView columns={4} columnGap="1%" marginLeft="8%">
           {newArrivals &&
             newArrivals.map((item) => {
               return (
@@ -110,7 +110,7 @@ const LandingPage = () => {
             })}
         </GridView>
       ) : (
-        <GridView>
+        <GridView columns={4} columnGap="1%" marginLeft="8%">
           {lastChance &&
             lastChance.map((item) => {
               return (
