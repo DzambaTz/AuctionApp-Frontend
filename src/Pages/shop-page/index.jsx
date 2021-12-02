@@ -12,12 +12,15 @@ import "./index.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import testData from "../../Helpers/test-data";
+import statusCodes from "../../Helpers/status-codes";
 
 function titleCase(string) {
   return string[0].toUpperCase() + string.slice(1).toLowerCase();
 }
 
 function ShopPage() {
+  const CATEGORY = "Category";
+
   const [newArrivals, setNewArrivals] = useState("");
   const [filteredItems, setFilteredItems] = useState(newArrivals);
   const [category, setCategory] = useState([titleCase(useParams().category)]);
@@ -25,25 +28,26 @@ function ShopPage() {
 
   useEffect(() => {
     itemService.getNewArrivals().then((response) => {
-      setNewArrivals(response.body);
+      if (response.status == statusCodes.OK) setNewArrivals(response.body);
     });
   }, []);
 
   useEffect(() => {
+    console.log(process.env.BASE_URL);
     if (newArrivals && category.length != 0) {
       setFilteredItems(
         newArrivals.filter((item) => {
           return category.includes(item.category);
         })
       );
-      var newFilters = [];
+      let newFilters = [];
       category.map((cat) => {
         if (
           !activeFilters.some(
-            (filter) => filter.title === "Category" && filter.value === cat
+            (filter) => filter.title === CATEGORY && filter.value === cat
           )
         ) {
-          newFilters.push({ title: "Category", value: titleCase(cat) });
+          newFilters.push({ title: CATEGORY, value: titleCase(cat) });
         }
       });
       setActiveFilters(activeFilters.concat(newFilters));
@@ -58,7 +62,7 @@ function ShopPage() {
         return filter.title != title || filter.value != value;
       })
     );
-    if (title == "Category") {
+    if (title == CATEGORY) {
       setCategory(category.filter((cat) => cat !== value));
     }
   };
@@ -121,7 +125,7 @@ function ShopPage() {
                   image={item.images[0] + ".jpeg"}
                   title={item.name}
                   price={item.startPrice}
-                  link={"/item/preview/" + item.id}
+                  link={`/item/preview/${item.id}`}
                 />
               );
             })}

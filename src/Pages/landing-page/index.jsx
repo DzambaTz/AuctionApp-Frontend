@@ -104,7 +104,7 @@ const LandingPage = () => {
                   image={item.images[0] + ".jpeg"}
                   title={item.name}
                   price={item.startPrice}
-                  link={"/item/preview/" + item.id}
+                  link={`/item/preview/${item.id}`}
                 />
               );
             })}
@@ -118,7 +118,7 @@ const LandingPage = () => {
                   image={item.images[0] + ".jpeg"}
                   title={item.name}
                   price={item.startPrice}
-                  link={"/item/preview/" + item.id}
+                  link={`/item/preview/${item.id}`}
                 />
               );
             })}
