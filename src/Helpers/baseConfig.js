@@ -1,3 +1,3 @@
-const BASE_URL = "https://nameless-inlet-82657.herokuapp.com/api/";
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 export { BASE_URL };

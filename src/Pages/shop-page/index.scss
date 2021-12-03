@@ -1,0 +1,87 @@
+@import "../../Helpers/constants.scss";
+
+.filters-and-categories {
+  width: 24.4%;
+  height: 1820px;
+  float: left;
+  display: inline;
+  box-sizing: border-box;
+}
+
+.product-list {
+  width: 75%;
+  float: left;
+  display: inline;
+  box-sizing: border-box;
+  font-family: $main-font;
+}
+
+.filter {
+  display: inline-block;
+  width: fit-content;
+  margin-right: 5%;
+  margin-left: 1%;
+  margin-bottom: 55px;
+}
+
+.filter-title {
+  color: $gray1;
+  font-weight: 300;
+  font-size: 14px;
+  margin-bottom: 8px;
+  margin-top: 12px;
+}
+
+.filter-value {
+  color: $gray0;
+  font-weight: 400;
+  font-size: 16px;
+  display: inline;
+  margin: 0px 13px 55px 0px;
+}
+
+.remove-filter {
+  background-color: transparent;
+  border: none;
+  color: $gray1;
+  font-size: 12px;
+  :hover {
+    cursor: pointer;
+    color: $purple;
+  }
+}
+
+.product-categories {
+  border: solid 1px $gray2;
+  float: right;
+  width: 60%;
+  font-family: $main-font;
+  padding-left: 24px;
+  margin-right: 12px;
+  h1 {
+    color: $purple;
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 32px;
+    margin-top: 24px;
+  }
+  h2 {
+    color: $gray0;
+    font-size: 16px;
+    font-weight: 400;
+    display: inline-block;
+    line-height: 16px;
+    margin-top: 0;
+    margin-bottom: 24px;
+  }
+  button {
+    background: none;
+    border: none;
+    font-size: 16px;
+    float: right;
+    margin-right: 14px;
+  }
+  button:hover {
+    cursor: pointer;
+  }
+}

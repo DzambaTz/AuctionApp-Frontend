@@ -61,22 +61,26 @@ const api = {
 
 const execute = async (route, config) => {
   return new Promise((resolve, reject) => {
-    fetch(BASE_URL + route, config).then(
-      (response) => {
-        response.text().then(
-          (text) => {
-            const json = text?.length > 0 ? JSON.parse(text) : {};
-            resolve({
-              headers: response.headers,
-              status: response.status,
-              body: json,
-            });
-          },
-          (err) => reject(err)
-        );
-      },
-      (err) => reject(err)
-    );
+    fetch(BASE_URL + route, config)
+      .then(
+        (response) => {
+          response?.text()?.then(
+            (text) => {
+              const json = text?.length > 0 ? JSON.parse(text) : {};
+              resolve({
+                headers: response.headers,
+                status: response.status,
+                body: json,
+              });
+            },
+            (err) => reject(err)
+          );
+        },
+        (err) => reject(err)
+      )
+      .catch((error) => {
+        reject(error);
+      });
   });
 };
 

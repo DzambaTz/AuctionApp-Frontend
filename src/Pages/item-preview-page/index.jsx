@@ -7,7 +7,6 @@ import Banner from "../../Components/banner";
 import "./index.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
-import testData from "../../Helpers/test-data";
 import durationToTime from "../../Helpers/durationToTime";
 import authService from "../../Auth/auth.service";
 import itemService from "../../Services/item.service";
