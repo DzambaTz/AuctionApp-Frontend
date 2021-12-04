@@ -1,4 +1,3 @@
-import react from "react";
 import Footer from "../../Components/footer";
 import GridView from "../../Components/grid-view";
 import NavbarBlack from "../../Components/navbar-black";
@@ -10,11 +9,11 @@ import { useParams } from "react-router";
 
 import "./index.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import testData from "../../Helpers/test-data";
 import statusCodes from "../../Helpers/status-codes";
 import MultiRangeSlider from "../../Components/multi-range-slider";
-import { act } from "react-dom/test-utils";
 
 function titleCase(string) {
   return string[0].toUpperCase() + string.slice(1).toLowerCase();
@@ -26,6 +25,9 @@ function ShopPage() {
   const PRICE_RANGE = "Price range";
 
   const pathCategory = useParams().category;
+  let searchInput = useParams().input;
+
+  searchInput = searchInput ? searchInput : "";
 
   const [newArrivals, setNewArrivals] = useState("");
   const [filteredItems, setFilteredItems] = useState(newArrivals);
@@ -58,11 +60,6 @@ function ShopPage() {
 
   useEffect(() => {
     if (newArrivals && category.length != 0) {
-      setFilteredItems(
-        newArrivals.filter((item) => {
-          return category.includes(item.category);
-        })
-      );
       let newFilters = [];
       category.map((cat) => {
         if (
@@ -74,8 +71,6 @@ function ShopPage() {
         }
       });
       setActiveFilters(activeFilters.concat(newFilters));
-    } else {
-      setFilteredItems(newArrivals);
     }
   }, [newArrivals, category]);
 
@@ -105,12 +100,19 @@ function ShopPage() {
               item.startPrice <= maxPriceSlider
             ) {
               if (
-                category.includes(item.category) ||
-                subcategory.includes(item.category + "/" + item.subcategory)
+                (item.name.includes(searchInput) ||
+                  item.name.includes(titleCase(searchInput))) &&
+                (category.includes(item.category) ||
+                  subcategory.includes(item.category + "/" + item.subcategory))
               ) {
                 return true;
               } else {
-                if (category.length == 0 && subcategory.length == 0) {
+                if (
+                  category.length == 0 &&
+                  subcategory.length == 0 &&
+                  (item.name.includes(searchInput) ||
+                    item.name.includes(titleCase(searchInput)))
+                ) {
                   return true;
                 }
               }
@@ -119,12 +121,19 @@ function ShopPage() {
             }
           } else {
             if (
-              category.includes(item.category) ||
-              subcategory.includes(item.category + "/" + item.subcategory)
+              (item.name.includes(searchInput) ||
+                item.name.includes(titleCase(searchInput))) &&
+              (category.includes(item.category) ||
+                subcategory.includes(item.category + "/" + item.subcategory))
             ) {
               return true;
             } else {
-              if (category.length == 0 && subcategory.length == 0) {
+              if (
+                category.length == 0 &&
+                subcategory.length == 0 &&
+                (item.name.includes(searchInput) ||
+                  item.name.includes(titleCase(searchInput)))
+              ) {
                 return true;
               }
             }
@@ -132,7 +141,18 @@ function ShopPage() {
         })
       );
     } else {
-      setFilteredItems(newArrivals);
+      if (newArrivals) {
+        setFilteredItems(
+          newArrivals.filter((item) => {
+            return (
+              item.name.includes(searchInput) ||
+              item.name.includes(titleCase(searchInput))
+            );
+          })
+        );
+      } else {
+        setFilteredItems(newArrivals);
+      }
     }
   }, [activeFilters]);
 
@@ -141,22 +161,15 @@ function ShopPage() {
       setActiveFilters(
         activeFilters.concat({
           title: PRICE_RANGE,
-          min: minPriceSlider,
-          max: maxPriceSlider,
           value: "$" + minPriceSlider + "-$" + maxPriceSlider,
         })
       );
     } else {
-      let priceFilter = activeFilters.find(
-        (filter) => filter.title === PRICE_RANGE
-      );
       let newActiveFilters = activeFilters.filter(
         (filter) => filter.title !== PRICE_RANGE
       );
-      priceFilter = {
+      const priceFilter = {
         title: PRICE_RANGE,
-        min: minPriceSlider,
-        max: maxPriceSlider,
         value: "$" + minPriceSlider + "-$" + maxPriceSlider,
       };
       setActiveFilters(newActiveFilters.concat(priceFilter));
@@ -223,6 +236,12 @@ function ShopPage() {
     <div>
       <NavbarBlack />
       <NavbarWhite page="shop" />
+      {searchInput != "" && (
+        <div className="search-result-banner">
+          Shop <FontAwesomeIcon className="banner-arrow" icon={faArrowRight} />{" "}
+          <span>Search results for {searchInput}</span>
+        </div>
+      )}
       <div className="filters-and-categories">
         <div className="product-categories">
           <h1>Product categories</h1>
@@ -284,17 +303,18 @@ function ShopPage() {
               className="price-input"
               Style="margin-right: 14%;"
               value={"$" + minPriceSlider}
+              disabled="true"
             />
             <input
               type="text"
               className="price-input"
               value={"$" + maxPriceSlider}
+              disabled="true"
             />
             <br />
             <br />
             <br />
             <br />
-
             <MultiRangeSlider
               min={minPrice}
               max={maxPrice}

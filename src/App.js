@@ -24,6 +24,8 @@ function App() {
         <Route exact path="/terms" component={TermsPage} />
         <Route path="/item/preview/:id" component={ItemPreviewPage} />
         <Route path="/shop/:category" component={ShopPage} />
+        <Route path="/search/:input" component={ShopPage} />
+        <Route path="/search/" component={ShopPage} />
         <Route path="/shop/" component={ShopPage} />
         <Route component={PageNotFound} />
       </Switch>

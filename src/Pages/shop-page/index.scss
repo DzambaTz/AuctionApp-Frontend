@@ -150,3 +150,17 @@
     color: $gray1;
   }
 }
+
+.search-result-banner {
+  padding-left: 8%;
+  font-size: 16px;
+  font-weight: 300;
+  font-family: $main-font;
+  color: $gray1;
+  margin-top: 10px;
+  height: 55px;
+  span {
+    color: $purple;
+    font-weight: 700;
+  }
+}

@@ -6,6 +6,16 @@ import logo from "../../Assets/Images/app_logo.png";
 import "./index.scss";
 
 const NavbarWhite = (props) => {
+  const searchItemsInput = (e) => {
+    if (e.key === "Enter")
+      window.location.href =
+        "/search/" + document.getElementById("search-bar").value;
+  };
+
+  const searchItemsButton = () => {
+    window.location.href =
+      "/search/" + document.getElementById("search-bar").value;
+  };
   return (
     <div className="navbar-container">
       <div className="logo">
@@ -14,8 +24,13 @@ const NavbarWhite = (props) => {
         </a>
       </div>
       <div className="search-bar">
-        <input type="text" placeholder="Search.." />
-        <button type="submit">
+        <input
+          type="text"
+          id="search-bar"
+          placeholder="Search.."
+          onKeyDown={(e) => searchItemsInput(e)}
+        />
+        <button type="submit" onClick={searchItemsButton}>
           <FontAwesomeIcon icon={faSearch} />
         </button>
       </div>
@@ -42,12 +57,12 @@ const NavbarWhite = (props) => {
         {props.page === "account" ? (
           <a
             Style="color: #8367d8;font-weight: 700;margin-right: 30%;"
-            href="/shop"
+            href="/account"
           >
             MY ACCOUNT
           </a>
         ) : (
-          <a Style="margin-right: 30%;" href="/shop">
+          <a Style="margin-right: 30%;" href="/account">
             MY ACCOUNT
           </a>
         )}
