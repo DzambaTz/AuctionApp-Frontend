@@ -26,138 +26,50 @@ function ShopPage() {
 
   const pathCategory = useParams().category;
   let searchInput = useParams().input;
-
   searchInput = searchInput ? searchInput : "";
-
-  const [newArrivals, setNewArrivals] = useState("");
-  const [filteredItems, setFilteredItems] = useState(newArrivals);
+  const [filteredItems, setFilteredItems] = useState("");
   const [category, setCategory] = useState(
     pathCategory ? [titleCase(pathCategory)] : []
   );
-  const [activeFilters, setActiveFilters] = useState([]);
+  const [activeFilters, setActiveFilters] = useState(
+    pathCategory ? [{ title: CATEGORY, value: titleCase(pathCategory) }] : []
+  );
   const [expandedCategories, setExpandedCategories] = useState([]);
   const [subcategory, setSubcategory] = useState([]);
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(0);
   const [minPriceSlider, setMinPriceSlider] = useState(0);
   const [maxPriceSlider, setMaxPriceSlider] = useState(0);
+  const [minPriceLabel, setMinPriceLabel] = useState(0);
+  const [maxPriceLabel, setMaxPriceLabel] = useState(0);
 
   useEffect(() => {
-    itemService.getNewArrivals().then((response) => {
-      if (response.status == statusCodes.OK) setNewArrivals(response.body);
-      setMinPrice(
-        response.body.reduce((prev, curr) =>
-          prev.startPrice < curr.startPrice ? prev : curr
-        ).startPrice
-      );
-      setMaxPrice(
-        response.body.reduce((prev, curr) =>
-          prev.startPrice > curr.startPrice ? prev : curr
-        ).startPrice
-      );
+    itemService.getItemPriceLimits().then((response) => {
+      setMinPrice(response.body[0]);
+      setMaxPrice(response.body[1]);
     });
   }, []);
 
   useEffect(() => {
-    if (newArrivals && category.length != 0) {
-      let newFilters = [];
-      category.map((cat) => {
-        if (
-          !activeFilters.some(
-            (filter) => filter.title === CATEGORY && filter.value === cat
-          )
-        ) {
-          newFilters.push({ title: CATEGORY, value: titleCase(cat) });
+    itemService
+      .getFilteredItems(
+        category,
+        subcategory,
+        minPriceSlider,
+        maxPriceSlider,
+        searchInput
+      )
+      .then((response) => {
+        if (response.status == statusCodes.OK) {
+          setFilteredItems(response.body);
+        } else {
+          setFilteredItems([]);
         }
       });
-      setActiveFilters(activeFilters.concat(newFilters));
-    }
-  }, [newArrivals, category]);
+  }, [activeFilters, minPriceSlider, maxPriceSlider]);
 
   useEffect(() => {
-    if (subcategory.length != 0) {
-      let newFilters = [];
-      subcategory.map((subcat) => {
-        if (
-          !activeFilters.some(
-            (filter) => filter.title === SUBCATEGORY && filter.value === subcat
-          )
-        ) {
-          newFilters.push({ title: SUBCATEGORY, value: subcat });
-        }
-      });
-      setActiveFilters(activeFilters.concat(newFilters));
-    }
-  }, [subcategory]);
-
-  useEffect(() => {
-    if (newArrivals && activeFilters.length != 0) {
-      setFilteredItems(
-        newArrivals.filter((item) => {
-          if (activeFilters.some((filter) => filter.title == PRICE_RANGE)) {
-            if (
-              item.startPrice >= minPriceSlider &&
-              item.startPrice <= maxPriceSlider
-            ) {
-              if (
-                (item.name.includes(searchInput) ||
-                  item.name.includes(titleCase(searchInput))) &&
-                (category.includes(item.category) ||
-                  subcategory.includes(item.category + "/" + item.subcategory))
-              ) {
-                return true;
-              } else {
-                if (
-                  category.length == 0 &&
-                  subcategory.length == 0 &&
-                  (item.name.includes(searchInput) ||
-                    item.name.includes(titleCase(searchInput)))
-                ) {
-                  return true;
-                }
-              }
-            } else {
-              return false;
-            }
-          } else {
-            if (
-              (item.name.includes(searchInput) ||
-                item.name.includes(titleCase(searchInput))) &&
-              (category.includes(item.category) ||
-                subcategory.includes(item.category + "/" + item.subcategory))
-            ) {
-              return true;
-            } else {
-              if (
-                category.length == 0 &&
-                subcategory.length == 0 &&
-                (item.name.includes(searchInput) ||
-                  item.name.includes(titleCase(searchInput)))
-              ) {
-                return true;
-              }
-            }
-          }
-        })
-      );
-    } else {
-      if (newArrivals) {
-        setFilteredItems(
-          newArrivals.filter((item) => {
-            return (
-              item.name.includes(searchInput) ||
-              item.name.includes(titleCase(searchInput))
-            );
-          })
-        );
-      } else {
-        setFilteredItems(newArrivals);
-      }
-    }
-  }, [activeFilters]);
-
-  useEffect(() => {
-    if (!activeFilters.some((filter) => filter.title === PRICE_RANGE)) {
+    if (!activeFilters.filter((filter) => filter.title == PRICE_RANGE).length) {
       setActiveFilters(
         activeFilters.concat({
           title: PRICE_RANGE,
@@ -165,14 +77,11 @@ function ShopPage() {
         })
       );
     } else {
-      let newActiveFilters = activeFilters.filter(
-        (filter) => filter.title !== PRICE_RANGE
+      const priceFilterPos = activeFilters.findIndex(
+        (filter) => filter.title == PRICE_RANGE
       );
-      const priceFilter = {
-        title: PRICE_RANGE,
-        value: "$" + minPriceSlider + "-$" + maxPriceSlider,
-      };
-      setActiveFilters(newActiveFilters.concat(priceFilter));
+      activeFilters[priceFilterPos].value =
+        "$" + minPriceSlider + "-$" + maxPriceSlider;
     }
   }, [minPriceSlider, maxPriceSlider]);
 
@@ -184,20 +93,33 @@ function ShopPage() {
     );
     if (title == CATEGORY) {
       setCategory(category.filter((cat) => cat !== value));
-    }
-    if (title == SUBCATEGORY) {
+    } else if (title == SUBCATEGORY) {
       setSubcategory(subcategory.filter((subcat) => subcat !== value));
       document.getElementById(value).checked = false;
+    } else if (title == PRICE_RANGE) {
+      setMaxPriceSlider(maxPrice);
+      setMinPriceSlider(minPrice);
+      setMaxPriceLabel(maxPrice);
+      setMinPriceLabel(minPrice);
     }
   };
 
   const addCategoryFilter = (newCategory) => {
-    if (!category.includes(newCategory))
+    if (!category.includes(newCategory)) {
       setCategory(category.concat(newCategory));
+      if (
+        !activeFilters.filter((filter) => {
+          return filter.title == CATEGORY && filter.value == newCategory;
+        }).length
+      ) {
+        setActiveFilters(
+          activeFilters.concat({ title: CATEGORY, value: newCategory })
+        );
+      }
+    }
   };
 
   const expandOrCollapseCategory = (categoryName, e) => {
-    console.log(minPrice, maxPrice);
     if (e.target.innerText == "+") {
       setExpandedCategories(expandedCategories.concat(categoryName));
     } else {
@@ -211,6 +133,12 @@ function ShopPage() {
   const addOrRemoveSubcategoryFilter = (categoryName, subcategoryName, e) => {
     if (e.target.checked) {
       setSubcategory(subcategory.concat(categoryName + "/" + subcategoryName));
+      setActiveFilters(
+        activeFilters.concat({
+          title: SUBCATEGORY,
+          value: categoryName + "/" + subcategoryName,
+        })
+      );
     } else {
       setSubcategory(
         subcategory.filter(
@@ -230,6 +158,17 @@ function ShopPage() {
   const changePriceRange = (min, max) => {
     setMinPriceSlider(min);
     setMaxPriceSlider(max);
+  };
+
+  const changePriceLabel = (min, max) => {
+    setMinPriceLabel(min);
+    setMaxPriceLabel(max);
+  };
+
+  const numberOfItemsInSubcategory = (cat, subcat) => {
+    return filteredItems.filter(
+      (item) => item.category == cat.name && item.subcategory == subcat
+    ).length;
   };
 
   return (
@@ -279,13 +218,9 @@ function ShopPage() {
                         />
                         <div Style="padding-top: 2px">
                           {subcat} (
-                          {
-                            newArrivals.filter(
-                              (item) =>
-                                item.category == category.name &&
-                                item.subcategory == subcat
-                            ).length
-                          }
+                          {(filteredItems &&
+                            numberOfItemsInSubcategory(category, subcat)) ||
+                            0}
                           )
                         </div>
                       </div>
@@ -302,13 +237,13 @@ function ShopPage() {
               type="text"
               className="price-input"
               Style="margin-right: 14%;"
-              value={"$" + minPriceSlider}
+              value={"$" + Math.round(minPriceLabel)}
               disabled="true"
             />
             <input
               type="text"
               className="price-input"
-              value={"$" + maxPriceSlider}
+              value={"$" + Math.round(maxPriceLabel)}
               disabled="true"
             />
             <br />
@@ -318,10 +253,11 @@ function ShopPage() {
             <MultiRangeSlider
               min={minPrice}
               max={maxPrice}
-              onChange={({ min, max }) => changePriceRange(min, max)}
+              onRelease={({ min, max }) => changePriceRange(min, max)}
+              onChange={({ min, max }) => changePriceLabel(min, max)}
             />
             <h2>
-              ${minPriceSlider}-${maxPriceSlider}
+              ${minPriceLabel}-${maxPriceLabel}
             </h2>
             <h3>
               The average price is ${Math.floor((minPrice + maxPrice) / 2)}
@@ -331,7 +267,7 @@ function ShopPage() {
       </div>
       <div className="product-list">
         <div className="active-filters">
-          {activeFilters.length != 0 &&
+          {activeFilters.length &&
             activeFilters.map((filter) => {
               return (
                 <div className="filter">
@@ -365,7 +301,6 @@ function ShopPage() {
             })}
         </GridView>
       </div>
-
       <Footer />
     </div>
   );

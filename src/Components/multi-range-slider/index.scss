@@ -13,18 +13,16 @@
 }
 
 .slider__track {
-  background-color: #ced4da;
+  background-color: $white0;
   width: 100%;
   z-index: 1;
-  background-color: $purple;
 }
 
 .slider__range {
-  background-color: #9fe5e1;
+  background-color: $purple;
   z-index: 2;
 }
 
-/* Removing the default appearance */
 .thumb,
 .thumb::-webkit-slider-thumb {
   -webkit-appearance: none;
@@ -35,9 +33,13 @@
   pointer-events: none;
   position: absolute;
   height: 0;
-  width: 13.5%;
-  outline: none;
+  width: 220px;
   margin-left: -1px;
+  outline: none;
+}
+
+.thumb::-webkit-slider-thumb:hover {
+  box-shadow: 0 0 10px $purple;
 }
 
 .thumb--zindex-3 {
@@ -48,29 +50,29 @@
   z-index: 4;
 }
 
-/* For Chrome browsers */
 .thumb::-webkit-slider-thumb {
-  background-color: white;
-  border: none;
+  background-color: $purple;
+  border: solid 5px white;
+  box-sizing: border-box;
   border-radius: 50%;
-  box-shadow: 0 0 1px 1px $gray1;
+  box-shadow: 0 0 1px 1px $white0;
   cursor: pointer;
-  height: 18px;
-  width: 18px;
+  height: 20px;
+  width: 20px;
   margin-top: 4px;
   pointer-events: all;
   position: relative;
 }
 
-/* For Firefox browsers */
 .thumb::-moz-range-thumb {
-  background-color: white;
-  border: none;
+  background-color: $purple;
+  border: solid 5px white;
+  box-sizing: border-box;
   border-radius: 50%;
-  box-shadow: 0 0 1px 1px #ced4da;
+  box-shadow: 0 0 1px 1px $white0;
   cursor: pointer;
-  height: 18px;
-  width: 18px;
+  height: 20px;
+  width: 20px;
   margin-top: 4px;
   pointer-events: all;
   position: relative;
@@ -78,20 +80,4 @@
 
 .thumb--zindex-5 {
   z-index: 5;
-}
-
-.slider__left-value,
-.slider__right-value {
-  color: #dee2e6;
-  font-size: 12px;
-  margin-top: 20px;
-  position: absolute;
-}
-
-.slider__left-value {
-  left: 6px;
-}
-
-.slider__right-value {
-  right: -4px;
 }

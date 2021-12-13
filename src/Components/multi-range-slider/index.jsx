@@ -1,51 +1,69 @@
 import "./index.scss";
+import { useState, useRef, useEffect } from "react";
 import classnames from "classnames";
 
-import { useState, useRef, useEffect, useCallback } from "react";
-
-const MultiRangeSlider = ({ min, max, onChange }) => {
+const MultiRangeSlider = ({ min, max, onRelease, onChange }) => {
   const [minVal, setMinVal] = useState(min);
   const [maxVal, setMaxVal] = useState(max);
   const minValRef = useRef(null);
   const maxValRef = useRef(null);
   const range = useRef(null);
+  const [isDragged, setIsDragged] = useState(false);
 
-  const getPercent = useCallback(
-    (value) => {
-      Math.round(((value - min) / (max - min)) * 100);
-    },
-    [min, max]
-  );
+  const thumbPositionToSliderWidthPercentage = (value) => {
+    return Math.round(((value - min) / (max - min)) * 100);
+  };
 
-  // Set width of the range to decrease from the left side
+  const onRightThumbChange = (e) => {
+    setIsDragged(true);
+    const value = Math.max(Number(e.target.value), minVal);
+    e.target.value = value;
+    setMaxVal(value);
+  };
+
+  const onLeftThumbChange = (e) => {
+    setIsDragged(true);
+    const value = Math.min(Number(e.target.value), maxVal);
+    e.target.value = value;
+    setMinVal(value);
+  };
+
   useEffect(() => {
     if (maxValRef.current) {
-      const minPercent = getPercent(minVal);
-      const maxPercent = getPercent(+maxValRef.current.value);
+      const minPercent = thumbPositionToSliderWidthPercentage(minVal);
+      const maxPercent = thumbPositionToSliderWidthPercentage(
+        maxValRef.current.value
+      );
 
       if (range.current) {
         range.current.style.left = `${minPercent}%`;
         range.current.style.width = `${maxPercent - minPercent}%`;
       }
     }
-  }, [minVal, getPercent]);
+  }, [minVal]);
 
-  // Set width of the range to decrease from the right side
   useEffect(() => {
     if (minValRef.current) {
-      const minPercent = getPercent(+minValRef.current.value);
-      const maxPercent = getPercent(maxVal);
+      const minPercent = thumbPositionToSliderWidthPercentage(
+        minValRef.current.value
+      );
+      const maxPercent = thumbPositionToSliderWidthPercentage(maxVal);
 
       if (range.current) {
         range.current.style.width = `${maxPercent - minPercent}%`;
       }
     }
-  }, [maxVal, getPercent]);
+  }, [maxVal]);
 
-  // Get min and max values when their state changes
   useEffect(() => {
     onChange({ min: minVal, max: maxVal });
-  }, [minVal, maxVal, onChange]);
+  }, [minVal, maxVal]);
+
+  useEffect(() => {
+    if (!isDragged) {
+      onRelease({ min: minVal, max: maxVal });
+    }
+  }, [isDragged]);
 
   return (
     <>
@@ -55,11 +73,10 @@ const MultiRangeSlider = ({ min, max, onChange }) => {
         max={max}
         value={minVal}
         ref={minValRef}
-        onChange={(event) => {
-          const value = Math.min(+event.target.value, maxVal - 1);
-          setMinVal(value);
-          event.target.value = value.toString();
+        onChange={(e) => {
+          onLeftThumbChange(e);
         }}
+        onMouseUp={() => setIsDragged(false)}
         className={classnames("thumb thumb--zindex-3", {
           "thumb--zindex-5": minVal > max - 100,
         })}
@@ -70,11 +87,10 @@ const MultiRangeSlider = ({ min, max, onChange }) => {
         max={max}
         value={maxVal}
         ref={maxValRef}
-        onChange={(event) => {
-          const value = Math.max(+event.target.value, minVal + 1);
-          setMaxVal(value);
-          event.target.value = value.toString();
+        onChange={(e) => {
+          onRightThumbChange(e);
         }}
+        onMouseUp={() => setIsDragged(false)}
         className="thumb thumb--zindex-4"
       />
       <div className="slider">
