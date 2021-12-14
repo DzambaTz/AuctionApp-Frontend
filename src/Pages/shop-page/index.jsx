@@ -268,8 +268,9 @@ function ShopPage() {
       </div>
       <div className="product-list">
         <div className="active-filters">
-          {activeFilters.length &&
+          {activeFilters &&
             activeFilters.map((filter) => {
+              console.log(filter);
               return (
                 <div className="filter">
                   <h1 className="filter-title">{filter.title}</h1>
