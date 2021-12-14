@@ -2,16 +2,16 @@
 
 .filters-and-categories {
   width: 24.4%;
-  height: 1820px;
+  height: fit-content;
   float: left;
-  display: inline;
+  display: block;
   box-sizing: border-box;
 }
 
 .product-list {
   width: 75%;
   float: left;
-  display: inline;
+  display: block;
   box-sizing: border-box;
   font-family: $main-font;
 }
@@ -92,6 +92,7 @@
 .subcategory {
   height: 40px;
   color: $gray1;
+  display: none;
   input[type="checkbox"] {
     width: 15px;
     height: 15px;
@@ -163,4 +164,9 @@
     color: $purple;
     font-weight: 700;
   }
+}
+
+.clear {
+  clear: both;
+  height: 356px;
 }

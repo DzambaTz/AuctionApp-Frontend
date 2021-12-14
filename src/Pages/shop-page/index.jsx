@@ -122,9 +122,15 @@ function ShopPage() {
   const expandOrCollapseCategory = (categoryName, e) => {
     if (e.target.innerText == "+") {
       setExpandedCategories(expandedCategories.concat(categoryName));
+      [...document.getElementsByName(categoryName)].map(
+        (element) => (element.style.display = "block")
+      );
     } else {
       setExpandedCategories(
         expandedCategories.filter((cat) => cat !== categoryName)
+      );
+      [...document.getElementsByName(categoryName)].map(
+        (element) => (element.style.display = "none")
       );
     }
     e.target.innerText = e.target.innerText == "+" ? "–" : "+";
@@ -172,7 +178,7 @@ function ShopPage() {
   };
 
   return (
-    <div>
+    <div className="shop-page-container">
       <NavbarBlack />
       <NavbarWhite page="shop" />
       {searchInput != "" && (
@@ -201,31 +207,26 @@ function ShopPage() {
                 >
                   +
                 </button>
-                {expandedCategories.includes(category.name) &&
-                  category.subcategories.map((subcat) => {
-                    return (
-                      <div className="subcategory">
-                        <input
-                          onChange={(e) =>
-                            addOrRemoveSubcategoryFilter(
-                              category.name,
-                              subcat,
-                              e
-                            )
-                          }
-                          type="checkbox"
-                          id={category.name + "/" + subcat}
-                        />
-                        <div Style="padding-top: 2px">
-                          {subcat} (
-                          {(filteredItems &&
-                            numberOfItemsInSubcategory(category, subcat)) ||
-                            0}
-                          )
-                        </div>
+                {category.subcategories.map((subcat) => {
+                  return (
+                    <div name={category.name} className="subcategory">
+                      <input
+                        onChange={(e) =>
+                          addOrRemoveSubcategoryFilter(category.name, subcat, e)
+                        }
+                        type="checkbox"
+                        id={category.name + "/" + subcat}
+                      />
+                      <div Style="padding-top: 2px">
+                        {subcat} (
+                        {(filteredItems &&
+                          numberOfItemsInSubcategory(category, subcat)) ||
+                          0}
+                        )
                       </div>
-                    );
-                  })}
+                    </div>
+                  );
+                })}
               </div>
             );
           })}
@@ -301,6 +302,7 @@ function ShopPage() {
             })}
         </GridView>
       </div>
+      <div className="clear"></div>
       <Footer />
     </div>
   );
