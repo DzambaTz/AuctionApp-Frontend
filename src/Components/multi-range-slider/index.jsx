@@ -73,9 +73,7 @@ const MultiRangeSlider = ({ min, max, onRelease, onChange }) => {
         max={max}
         value={minVal}
         ref={minValRef}
-        onChange={(e) => {
-          onLeftThumbChange(e);
-        }}
+        onChange={onLeftThumbChange}
         onMouseUp={() => setIsDragged(false)}
         className={classnames("thumb thumb--zindex-3", {
           "thumb--zindex-5": minVal > max - 100,
@@ -87,9 +85,7 @@ const MultiRangeSlider = ({ min, max, onRelease, onChange }) => {
         max={max}
         value={maxVal}
         ref={maxValRef}
-        onChange={(e) => {
-          onRightThumbChange(e);
-        }}
+        onChange={onRightThumbChange}
         onMouseUp={() => setIsDragged(false)}
         className="thumb thumb--zindex-4"
       />

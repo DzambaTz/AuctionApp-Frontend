@@ -14,16 +14,13 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import testData from "../../Helpers/test-data";
 import statusCodes from "../../Helpers/status-codes";
 import MultiRangeSlider from "../../Components/multi-range-slider";
+import shopPageUtil from "../../Helpers/shopPageUtil";
 
 function titleCase(string) {
   return string[0].toUpperCase() + string.slice(1).toLowerCase();
 }
 
 function ShopPage() {
-  const CATEGORY = "Category";
-  const SUBCATEGORY = "Subcategory";
-  const PRICE_RANGE = "Price range";
-
   const pathCategory = useParams().category;
   let searchInput = useParams().input;
   searchInput = searchInput ? searchInput : "";
@@ -32,7 +29,9 @@ function ShopPage() {
     pathCategory ? [titleCase(pathCategory)] : []
   );
   const [activeFilters, setActiveFilters] = useState(
-    pathCategory ? [{ title: CATEGORY, value: titleCase(pathCategory) }] : []
+    pathCategory
+      ? [{ title: shopPageUtil.CATEGORY, value: titleCase(pathCategory) }]
+      : []
   );
   const [expandedCategories, setExpandedCategories] = useState([]);
   const [subcategory, setSubcategory] = useState([]);
@@ -43,10 +42,14 @@ function ShopPage() {
   const [minPriceLabel, setMinPriceLabel] = useState(0);
   const [maxPriceLabel, setMaxPriceLabel] = useState(0);
 
+  const sliderRange = `$${minPriceSlider}-$${maxPriceSlider}`;
+
   useEffect(() => {
     itemService.getItemPriceLimits().then((response) => {
-      setMinPrice(response.body[0]);
-      setMaxPrice(response.body[1]);
+      if (response.status == statusCodes.OK) {
+        setMinPrice(response.body[0]);
+        setMaxPrice(response.body[1]);
+      }
     });
   }, []);
 
@@ -69,19 +72,22 @@ function ShopPage() {
   }, [activeFilters, minPriceSlider, maxPriceSlider]);
 
   useEffect(() => {
-    if (!activeFilters.filter((filter) => filter.title == PRICE_RANGE).length) {
+    if (
+      !activeFilters.filter(
+        (filter) => filter.title == shopPageUtil.PRICE_RANGE
+      ).length
+    ) {
       setActiveFilters(
         activeFilters.concat({
-          title: PRICE_RANGE,
-          value: "$" + minPriceSlider + "-$" + maxPriceSlider,
+          title: shopPageUtil.PRICE_RANGE,
+          value: sliderRange,
         })
       );
     } else {
       const priceFilterPos = activeFilters.findIndex(
-        (filter) => filter.title == PRICE_RANGE
+        (filter) => filter.title == shopPageUtil.PRICE_RANGE
       );
-      activeFilters[priceFilterPos].value =
-        "$" + minPriceSlider + "-$" + maxPriceSlider;
+      activeFilters[priceFilterPos].value = sliderRange;
     }
   }, [minPriceSlider, maxPriceSlider]);
 
@@ -91,12 +97,12 @@ function ShopPage() {
         return filter.title != title || filter.value != value;
       })
     );
-    if (title == CATEGORY) {
+    if (title == shopPageUtil.CATEGORY) {
       setCategory(category.filter((cat) => cat !== value));
-    } else if (title == SUBCATEGORY) {
+    } else if (title == shopPageUtil.SUBCATEGORY) {
       setSubcategory(subcategory.filter((subcat) => subcat !== value));
       document.getElementById(value).checked = false;
-    } else if (title == PRICE_RANGE) {
+    } else if (title == shopPageUtil.PRICE_RANGE) {
       setMaxPriceSlider(maxPrice);
       setMinPriceSlider(minPrice);
       setMaxPriceLabel(maxPrice);
@@ -109,11 +115,16 @@ function ShopPage() {
       setCategory(category.concat(newCategory));
       if (
         !activeFilters.filter((filter) => {
-          return filter.title == CATEGORY && filter.value == newCategory;
+          return (
+            filter.title == shopPageUtil.CATEGORY && filter.value == newCategory
+          );
         }).length
       ) {
         setActiveFilters(
-          activeFilters.concat({ title: CATEGORY, value: newCategory })
+          activeFilters.concat({
+            title: shopPageUtil.CATEGORY,
+            value: newCategory,
+          })
         );
       }
     }
@@ -141,7 +152,7 @@ function ShopPage() {
       setSubcategory(subcategory.concat(categoryName + "/" + subcategoryName));
       setActiveFilters(
         activeFilters.concat({
-          title: SUBCATEGORY,
+          title: shopPageUtil.SUBCATEGORY,
           value: categoryName + "/" + subcategoryName,
         })
       );
@@ -154,7 +165,7 @@ function ShopPage() {
       setActiveFilters(
         activeFilters.filter(
           (filter) =>
-            filter.title !== SUBCATEGORY ||
+            filter.title !== shopPageUtil.SUBCATEGORY ||
             filter.value !== categoryName + "/" + subcategoryName
         )
       );
@@ -198,7 +209,7 @@ function ShopPage() {
                     addCategoryFilter(category.name);
                   }}
                 >
-                  {category.name}
+                  {category?.name}
                 </h2>{" "}
                 <button
                   onClick={(e) => {
@@ -238,13 +249,13 @@ function ShopPage() {
               type="text"
               className="price-input"
               Style="margin-right: 14%;"
-              value={"$" + Math.round(minPriceLabel)}
+              value={`$${Math.round(minPriceLabel)}`}
               disabled="true"
             />
             <input
               type="text"
               className="price-input"
-              value={"$" + Math.round(maxPriceLabel)}
+              value={`$${Math.round(maxPriceLabel)}`}
               disabled="true"
             />
             <br />

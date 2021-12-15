@@ -28,7 +28,7 @@ const NavbarWhite = (props) => {
           type="text"
           id="search-bar"
           placeholder="Search.."
-          onKeyDown={(e) => searchItemsInput(e)}
+          onKeyDown={searchItemsInput}
         />
         <button type="submit" onClick={searchItemsButton}>
           <FontAwesomeIcon icon={faSearch} />

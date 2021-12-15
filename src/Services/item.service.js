@@ -19,26 +19,24 @@ const getFilteredItems = (
   maxPrice,
   search
 ) => {
-  let route = "v1/item/filter?";
+  let route = "v1/item/search?";
+  let params = new URLSearchParams();
 
-  route += "category=";
+  params.set("category", "");
   categories.map((category) => {
-    route += category + ",";
+    params.append("category", category);
   });
-  route = route.slice(0, -1);
-  route += "&";
 
-  route += "subcategory=";
+  params.set("subcategory", "");
   subcategories.map((subcategory) => {
-    route += "," + subcategory;
+    params.append("subcategory", subcategory);
   });
-  route += "&";
 
-  route += "minprice=" + minPrice + "&";
-  route += "maxprice=" + maxPrice + "&";
-  route += "search=" + search;
+  params.set("minPrice", minPrice);
+  params.set("maxPrice", maxPrice);
+  params.set("search", search);
 
-  return api.get(route);
+  return api.get(route + params);
 };
 
 const getItemPriceLimits = () => {

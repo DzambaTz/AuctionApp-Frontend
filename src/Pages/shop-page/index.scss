@@ -100,7 +100,6 @@
     appearance: none;
     outline: 2px solid $purple;
     box-shadow: none;
-    font-size: 2em;
     float: left;
   }
   input[type="checkbox"]:checked {
@@ -110,9 +109,9 @@
     content: "\2713";
     color: white;
     position: absolute;
-    line-height: 1rem;
-    font-size: 1rem;
-    padding-left: 0.1rem;
+    line-height: 15px;
+    font-size: 15px;
+    padding-left: 2px;
   }
 }
 
