@@ -48,6 +48,12 @@ function ItemPreviewPage() {
       setMessage("You must be logged in to bid!");
       return;
     }
+    if (bidAmount > 1000000000) {
+      setMessage("Bid amount is too large! Try bidding a smaller amount.");
+      setSuccessful(false);
+      setBidAmount("");
+      return;
+    }
 
     userService.placeBid(itemId, bidAmount).then(
       (response) => {
