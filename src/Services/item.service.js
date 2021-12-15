@@ -19,7 +19,7 @@ const getFilteredItems = (
   maxPrice,
   search
 ) => {
-  let route = "v1/item/filter?";
+  let route = "v1/item/search?";
   let params = new URLSearchParams();
 
   params.set("category", "");
@@ -32,8 +32,8 @@ const getFilteredItems = (
     params.append("subcategory", subcategory);
   });
 
-  params.set("minprice", minPrice);
-  params.set("maxprice", maxPrice);
+  params.set("minPrice", minPrice);
+  params.set("maxPrice", maxPrice);
   params.set("search", search);
 
   return api.get(route + params);
