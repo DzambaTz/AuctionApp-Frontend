@@ -314,7 +314,7 @@ function ShopPage() {
             })}
         </GridView>
       </div>
-      <div className="clear"></div>
+      <div className="clear-space-for-footer"></div>
       <Footer />
     </div>
   );
