@@ -22,6 +22,8 @@ function ItemPreviewPage() {
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
 
+  const MAX_BID_AMOUNT = 1000000000;
+
   useEffect(() => {
     itemService.getItemData(itemId).then((response) => {
       setItem(response.body);
@@ -46,6 +48,12 @@ function ItemPreviewPage() {
       !authService.getCurrentUser().roles.includes("ROLE_SELLER")
     ) {
       setMessage("You must be logged in to bid!");
+      return;
+    }
+    if (bidAmount > MAX_BID_AMOUNT) {
+      setMessage("Bid amount is too large! Try bidding a smaller amount.");
+      setSuccessful(false);
+      setBidAmount("");
       return;
     }
 
