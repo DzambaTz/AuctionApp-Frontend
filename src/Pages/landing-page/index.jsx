@@ -124,6 +124,7 @@ const LandingPage = () => {
             })}
         </GridView>
       )}
+      <div className="clear-space-for-footer"></div>
       <Footer />
     </div>
   );
