@@ -8,42 +8,47 @@ const categories = [
   {
     name: "Fashion",
     path: "/shop/fashion",
+    subcategories: ["Male", "Female", "Unisex", "Kids"],
   },
   {
     name: "Accessories",
     path: "/shop/accessories",
+    subcategories: [1, 2, 3, 4],
   },
   {
     name: "Jewlery",
     path: "/shop/jewlery",
+    subcategories: [1, 2, 3, 4],
   },
   {
     name: "Shoes",
     path: "/shop/shoes",
+    subcategories: [1, 2, 3, 4],
   },
   {
     name: "Sportswear",
     path: "/shop/sportswear",
+    subcategories: ["Male", "Female", "Unisex", "Kids"],
   },
   {
     name: "Home",
     path: "/shop/home",
+    subcategories: [1, 2, 3, 4],
   },
   {
     name: "Electronics",
     path: "/shop/electronics",
+    subcategories: [1, 2, 3, 4],
   },
   {
     name: "Mobile",
     path: "/shop/mobile",
+    subcategories: [1, 2, 3, 4],
   },
   {
     name: "Computer",
     path: "/shop/computer",
-  },
-  {
-    name: "All categories",
-    path: "/shop",
+    subcategories: [1, 2, 3, 4],
   },
 ];
 
