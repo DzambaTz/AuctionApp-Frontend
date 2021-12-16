@@ -20,6 +20,7 @@ import {
   PRICE_RANGE,
   SORTING_TYPES,
   DEFAULT_SORT,
+  DEFAULT_DIRECTION,
 } from "../../Helpers/shopPageUtil";
 
 function titleCase(string) {
@@ -46,6 +47,7 @@ function ShopPage() {
   const [minPriceLabel, setMinPriceLabel] = useState(0);
   const [maxPriceLabel, setMaxPriceLabel] = useState(0);
   const [selectedSorting, setSelectedSorting] = useState(DEFAULT_SORT);
+  const [sortingDirection, setSortingDirection] = useState(DEFAULT_DIRECTION);
 
   const sliderRange = `$${minPriceSlider}-$${maxPriceSlider}`;
 
@@ -66,7 +68,8 @@ function ShopPage() {
         minPriceSlider,
         maxPriceSlider,
         searchInput,
-        selectedSorting
+        selectedSorting,
+        sortingDirection
       )
       .then((response) => {
         if (response.status == statusCodes.OK) {
@@ -75,7 +78,13 @@ function ShopPage() {
           setFilteredItems([]);
         }
       });
-  }, [activeFilters, minPriceSlider, maxPriceSlider, selectedSorting]);
+  }, [
+    activeFilters,
+    minPriceSlider,
+    maxPriceSlider,
+    selectedSorting,
+    sortingDirection,
+  ]);
 
   useEffect(() => {
     if (!activeFilters.filter((filter) => filter.title == PRICE_RANGE).length) {
@@ -188,8 +197,9 @@ function ShopPage() {
     ).length;
   };
 
-  const changeSorting = (e) => {
-    setSelectedSorting(e.target.value);
+  const setSortingType = (e) => {
+    setSelectedSorting(SORTING_TYPES[e.target.selectedIndex].value);
+    setSortingDirection(SORTING_TYPES[e.target.selectedIndex].direction);
   };
 
   return (
@@ -304,7 +314,7 @@ function ShopPage() {
         </div>
         <div className="sort-and-view-select">
           <div className="sorting-selector">
-            <select onChange={changeSorting} value={selectedSorting}>
+            <select onChange={setSortingType}>
               {SORTING_TYPES.map((type) => {
                 return <option value={type.value}>{type.text}</option>;
               })}
