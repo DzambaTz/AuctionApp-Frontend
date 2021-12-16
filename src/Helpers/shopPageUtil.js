@@ -1,9 +1,19 @@
 const CATEGORY = "Category";
 const SUBCATEGORY = "Subcategory";
 const PRICE_RANGE = "Price range";
+const DEFAULT_SORTING = 0;
+const NEWNESS_SORTING = 1;
+const TIME_LEFT_SORTING = 2;
+const PRICE_DESC_SORTING = 3;
+const PRICE_ASC_SORTING = 4;
 
 export default {
   CATEGORY,
   SUBCATEGORY,
   PRICE_RANGE,
+  DEFAULT_SORTING,
+  NEWNESS_SORTING,
+  TIME_LEFT_SORTING,
+  PRICE_ASC_SORTING,
+  PRICE_DESC_SORTING,
 };

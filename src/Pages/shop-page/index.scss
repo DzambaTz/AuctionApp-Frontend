@@ -21,7 +21,7 @@
   width: fit-content;
   margin-right: 5%;
   margin-left: 1%;
-  margin-bottom: 55px;
+  margin-bottom: 25px;
 }
 
 .filter-title {
@@ -168,4 +168,17 @@
 .clear-space-for-footer {
   clear: both;
   height: 356px;
+}
+
+.sorting-selector {
+  select {
+    font-family: $main-font;
+    font-size: 16px;
+    border: solid 2px $white0;
+    padding: 12px 24px;
+  }
+}
+
+.sort-and-view-select {
+  margin-bottom: 32px;
 }

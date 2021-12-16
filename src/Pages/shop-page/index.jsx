@@ -41,6 +41,9 @@ function ShopPage() {
   const [maxPriceSlider, setMaxPriceSlider] = useState(0);
   const [minPriceLabel, setMinPriceLabel] = useState(0);
   const [maxPriceLabel, setMaxPriceLabel] = useState(0);
+  const [selectedSorting, setSelectedSorting] = useState(
+    shopPageUtil.DEFAULT_SORTING
+  );
 
   const sliderRange = `$${minPriceSlider}-$${maxPriceSlider}`;
 
@@ -60,7 +63,8 @@ function ShopPage() {
         subcategory,
         minPriceSlider,
         maxPriceSlider,
-        searchInput
+        searchInput,
+        selectedSorting
       )
       .then((response) => {
         if (response.status == statusCodes.OK) {
@@ -69,7 +73,7 @@ function ShopPage() {
           setFilteredItems([]);
         }
       });
-  }, [activeFilters, minPriceSlider, maxPriceSlider]);
+  }, [activeFilters, minPriceSlider, maxPriceSlider, selectedSorting]);
 
   useEffect(() => {
     if (
@@ -188,6 +192,10 @@ function ShopPage() {
     ).length;
   };
 
+  const changeSorting = (e) => {
+    setSelectedSorting(e.target.value);
+  };
+
   return (
     <div className="shop-page-container">
       <NavbarBlack />
@@ -248,7 +256,7 @@ function ShopPage() {
             <input
               type="text"
               className="price-input"
-              Style="margin-right: 14%;"
+              Style="margin-right: 15%;"
               value={`$${Math.round(minPriceLabel)}`}
               disabled="true"
             />
@@ -281,7 +289,6 @@ function ShopPage() {
         <div className="active-filters">
           {activeFilters &&
             activeFilters.map((filter) => {
-              console.log(filter);
               return (
                 <div className="filter">
                   <h1 className="filter-title">{filter.title}</h1>
@@ -298,6 +305,28 @@ function ShopPage() {
                 </div>
               );
             })}
+        </div>
+        <div className="sort-and-view-select">
+          <div className="sorting-selector">
+            <select onChange={changeSorting} value={selectedSorting}>
+              <option value={shopPageUtil.DEFAULT_SORTING}>
+                Default sorting
+              </option>
+              <option value={shopPageUtil.NEWNESS_SORTING}>
+                Sort by newness
+              </option>
+              <option value={shopPageUtil.TIME_LEFT_SORTING}>
+                Sort by time left
+              </option>
+              <option value={shopPageUtil.PRICE_DESC_SORTING}>
+                Sort by price (high-low)
+              </option>
+              <option value={shopPageUtil.PRICE_ASC_SORTING}>
+                Sort by price (low-high)
+              </option>
+            </select>
+          </div>
+          <div className="view-selector"></div>
         </div>
 
         <GridView columns={3} columnGap="15.5%">
