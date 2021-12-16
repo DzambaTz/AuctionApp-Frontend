@@ -1,19 +1,27 @@
-const CATEGORY = "Category";
-const SUBCATEGORY = "Subcategory";
-const PRICE_RANGE = "Price range";
-const DEFAULT_SORTING = 0;
-const NEWNESS_SORTING = 1;
-const TIME_LEFT_SORTING = 2;
-const PRICE_DESC_SORTING = 3;
-const PRICE_ASC_SORTING = 4;
+export const CATEGORY = "Category";
+export const SUBCATEGORY = "Subcategory";
+export const PRICE_RANGE = "Price range";
+export const DEFAULT_SORT = "DEFAULT_SORT";
 
-export default {
-  CATEGORY,
-  SUBCATEGORY,
-  PRICE_RANGE,
-  DEFAULT_SORTING,
-  NEWNESS_SORTING,
-  TIME_LEFT_SORTING,
-  PRICE_ASC_SORTING,
-  PRICE_DESC_SORTING,
-};
+export const SORTING_TYPES = [
+  {
+    text: "Default sorting",
+    value: "DEFAULT_SORT",
+  },
+  {
+    text: "Sort by newness",
+    value: "NEWNESS_SORT",
+  },
+  {
+    text: "Sort by time left",
+    value: "TIME_LEFT_SORT",
+  },
+  {
+    text: "Sort by price (high-low)",
+    value: "PRICE_DESC_SORT",
+  },
+  {
+    text: "Sort by price (low-high)",
+    value: "PRICE_ASC_SORT",
+  },
+];

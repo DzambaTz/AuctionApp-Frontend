@@ -14,7 +14,13 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import testData from "../../Helpers/test-data";
 import statusCodes from "../../Helpers/status-codes";
 import MultiRangeSlider from "../../Components/multi-range-slider";
-import shopPageUtil from "../../Helpers/shopPageUtil";
+import {
+  CATEGORY,
+  SUBCATEGORY,
+  PRICE_RANGE,
+  SORTING_TYPES,
+  DEFAULT_SORT,
+} from "../../Helpers/shopPageUtil";
 
 function titleCase(string) {
   return string[0].toUpperCase() + string.slice(1).toLowerCase();
@@ -29,9 +35,7 @@ function ShopPage() {
     pathCategory ? [titleCase(pathCategory)] : []
   );
   const [activeFilters, setActiveFilters] = useState(
-    pathCategory
-      ? [{ title: shopPageUtil.CATEGORY, value: titleCase(pathCategory) }]
-      : []
+    pathCategory ? [{ title: CATEGORY, value: titleCase(pathCategory) }] : []
   );
   const [expandedCategories, setExpandedCategories] = useState([]);
   const [subcategory, setSubcategory] = useState([]);
@@ -41,9 +45,7 @@ function ShopPage() {
   const [maxPriceSlider, setMaxPriceSlider] = useState(0);
   const [minPriceLabel, setMinPriceLabel] = useState(0);
   const [maxPriceLabel, setMaxPriceLabel] = useState(0);
-  const [selectedSorting, setSelectedSorting] = useState(
-    shopPageUtil.DEFAULT_SORTING
-  );
+  const [selectedSorting, setSelectedSorting] = useState(DEFAULT_SORT);
 
   const sliderRange = `$${minPriceSlider}-$${maxPriceSlider}`;
 
@@ -76,20 +78,16 @@ function ShopPage() {
   }, [activeFilters, minPriceSlider, maxPriceSlider, selectedSorting]);
 
   useEffect(() => {
-    if (
-      !activeFilters.filter(
-        (filter) => filter.title == shopPageUtil.PRICE_RANGE
-      ).length
-    ) {
+    if (!activeFilters.filter((filter) => filter.title == PRICE_RANGE).length) {
       setActiveFilters(
         activeFilters.concat({
-          title: shopPageUtil.PRICE_RANGE,
+          title: PRICE_RANGE,
           value: sliderRange,
         })
       );
     } else {
       const priceFilterPos = activeFilters.findIndex(
-        (filter) => filter.title == shopPageUtil.PRICE_RANGE
+        (filter) => filter.title == PRICE_RANGE
       );
       activeFilters[priceFilterPos].value = sliderRange;
     }
@@ -101,12 +99,12 @@ function ShopPage() {
         return filter.title != title || filter.value != value;
       })
     );
-    if (title == shopPageUtil.CATEGORY) {
+    if (title == CATEGORY) {
       setCategory(category.filter((cat) => cat !== value));
-    } else if (title == shopPageUtil.SUBCATEGORY) {
+    } else if (title == SUBCATEGORY) {
       setSubcategory(subcategory.filter((subcat) => subcat !== value));
       document.getElementById(value).checked = false;
-    } else if (title == shopPageUtil.PRICE_RANGE) {
+    } else if (title == PRICE_RANGE) {
       setMaxPriceSlider(maxPrice);
       setMinPriceSlider(minPrice);
       setMaxPriceLabel(maxPrice);
@@ -119,14 +117,12 @@ function ShopPage() {
       setCategory(category.concat(newCategory));
       if (
         !activeFilters.filter((filter) => {
-          return (
-            filter.title == shopPageUtil.CATEGORY && filter.value == newCategory
-          );
+          return filter.title == CATEGORY && filter.value == newCategory;
         }).length
       ) {
         setActiveFilters(
           activeFilters.concat({
-            title: shopPageUtil.CATEGORY,
+            title: CATEGORY,
             value: newCategory,
           })
         );
@@ -156,7 +152,7 @@ function ShopPage() {
       setSubcategory(subcategory.concat(categoryName + "/" + subcategoryName));
       setActiveFilters(
         activeFilters.concat({
-          title: shopPageUtil.SUBCATEGORY,
+          title: SUBCATEGORY,
           value: categoryName + "/" + subcategoryName,
         })
       );
@@ -169,7 +165,7 @@ function ShopPage() {
       setActiveFilters(
         activeFilters.filter(
           (filter) =>
-            filter.title !== shopPageUtil.SUBCATEGORY ||
+            filter.title !== SUBCATEGORY ||
             filter.value !== categoryName + "/" + subcategoryName
         )
       );
@@ -309,21 +305,9 @@ function ShopPage() {
         <div className="sort-and-view-select">
           <div className="sorting-selector">
             <select onChange={changeSorting} value={selectedSorting}>
-              <option value={shopPageUtil.DEFAULT_SORTING}>
-                Default sorting
-              </option>
-              <option value={shopPageUtil.NEWNESS_SORTING}>
-                Sort by newness
-              </option>
-              <option value={shopPageUtil.TIME_LEFT_SORTING}>
-                Sort by time left
-              </option>
-              <option value={shopPageUtil.PRICE_DESC_SORTING}>
-                Sort by price (high-low)
-              </option>
-              <option value={shopPageUtil.PRICE_ASC_SORTING}>
-                Sort by price (low-high)
-              </option>
+              {SORTING_TYPES.map((type) => {
+                return <option value={type.value}>{type.text}</option>;
+              })}
             </select>
           </div>
           <div className="view-selector"></div>
