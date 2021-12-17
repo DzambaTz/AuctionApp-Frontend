@@ -9,7 +9,12 @@ import { useParams } from "react-router";
 
 import "./index.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowRight,
+  faBorderAll,
+  faList,
+  faTh,
+} from "@fortawesome/free-solid-svg-icons";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import testData from "../../Helpers/test-data";
 import statusCodes from "../../Helpers/status-codes";
@@ -21,7 +26,10 @@ import {
   SORTING_TYPES,
   DEFAULT_SORT,
   DEFAULT_DIRECTION,
+  GRID_VIEW,
+  LIST_VIEW,
 } from "../../Helpers/shopPageUtil";
+import ListViewItem from "../../Components/list-view-item";
 
 function titleCase(string) {
   return string[0].toUpperCase() + string.slice(1).toLowerCase();
@@ -48,6 +56,7 @@ function ShopPage() {
   const [maxPriceLabel, setMaxPriceLabel] = useState(0);
   const [selectedSorting, setSelectedSorting] = useState(DEFAULT_SORT);
   const [sortingDirection, setSortingDirection] = useState(DEFAULT_DIRECTION);
+  const [viewStyle, setViewStyle] = useState(GRID_VIEW);
 
   const sliderRange = `$${minPriceSlider}-$${maxPriceSlider}`;
 
@@ -320,22 +329,48 @@ function ShopPage() {
               })}
             </select>
           </div>
-          <div className="view-selector"></div>
+          <div className="view-selector">
+            <button
+              className={viewStyle == GRID_VIEW && "view-is-active"}
+              onClick={() => setViewStyle(GRID_VIEW)}
+            >
+              <FontAwesomeIcon icon={faBorderAll} Style="color: orange" /> Grid
+            </button>
+            <button
+              className={viewStyle == LIST_VIEW && "view-is-active"}
+              onClick={() => setViewStyle(LIST_VIEW)}
+            >
+              <FontAwesomeIcon icon={faList} /> List
+            </button>
+          </div>
         </div>
-
-        <GridView columns={3} columnGap="15.5%">
-          {filteredItems &&
-            filteredItems.map((item) => {
-              return (
-                <ItemCard
-                  image={item.images[0] + ".jpeg"}
-                  title={item.name}
-                  price={item.startPrice}
-                  link={`/item/preview/${item.id}`}
-                />
-              );
-            })}
-        </GridView>
+        {viewStyle == GRID_VIEW ? (
+          <GridView columns={4} columnGap="2.5%">
+            {filteredItems &&
+              filteredItems.map((item) => {
+                return (
+                  <ItemCard
+                    image={item.images[0] + ".jpeg"}
+                    title={item.name}
+                    price={item.startPrice}
+                    link={`/item/preview/${item.id}`}
+                  />
+                );
+              })}
+          </GridView>
+        ) : (
+          filteredItems.map((item) => {
+            return (
+              <ListViewItem
+                link={`/item/preview/${item.id}`}
+                image={item.images[0] + ".jpeg"}
+                title={item.name}
+                description={item.description}
+                price={item.startPrice}
+              />
+            );
+          })
+        )}
       </div>
       <div className="clear-space-for-footer"></div>
       <Footer />
