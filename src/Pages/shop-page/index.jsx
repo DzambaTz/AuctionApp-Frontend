@@ -30,10 +30,7 @@ import {
   LIST_VIEW,
 } from "../../Helpers/shopPageUtil";
 import ListViewItem from "../../Components/list-view-item";
-
-function titleCase(string) {
-  return string[0].toUpperCase() + string.slice(1).toLowerCase();
-}
+import titleCase from "../../Helpers/titleCase";
 
 function ShopPage() {
   const pathCategory = useParams().category;

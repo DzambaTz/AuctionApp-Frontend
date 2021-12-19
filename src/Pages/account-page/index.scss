@@ -1,0 +1,125 @@
+@import "../../Helpers/constants.scss";
+
+.account-nav-tabs {
+  margin-top: 40px;
+  padding-left: 8%;
+  margin-bottom: 64px;
+  button {
+    font-family: $main-font;
+    font-size: 18px;
+    font-weight: 400;
+    padding: 16px 0px;
+    width: 10%;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+}
+
+.not-active-account-tab {
+  background-color: transparent;
+}
+
+.active-account-tab {
+  color: white;
+  background-color: $purple;
+}
+
+.profile-personal-info-form {
+  font-family: $main-font;
+  font-size: 18px;
+  font-weight: 400;
+  box-sizing: border-box;
+  width: 84%;
+  margin: auto;
+  border: solid 1px $gray3;
+  height: 800px;
+  h2 {
+    margin: 0;
+    font-size: 18px;
+    background-color: $white1;
+    height: 60px;
+    font-weight: 400;
+    border: solid 1px $gray3;
+    line-height: 60px;
+    padding-left: 32px;
+  }
+}
+
+.profile-photo {
+  width: 35%;
+  box-sizing: border-box;
+  float: left;
+  height: 100%;
+  padding-top: 25px;
+  text-align: center;
+  img {
+    height: 350px;
+    width: 350px;
+    border-radius: 50%;
+    display: block;
+    margin: auto;
+    margin-bottom: 30px;
+  }
+  input[type="file"] {
+    display: none;
+  }
+}
+
+.custom-file-upload {
+  border: solid 3px $purple;
+  display: inline-block;
+  padding: 15px 0px;
+  width: 350px;
+  cursor: pointer;
+  text-align: center;
+  font-weight: 700;
+}
+
+.custom-file-upload:hover {
+  color: white;
+  background-color: $purple;
+}
+
+.profile-personal-info {
+  width: 65%;
+  box-sizing: border-box;
+  float: left;
+  height: 100%;
+  h1 {
+    font-size: 18px;
+    font-weight: 400;
+    margin: 16px 0px;
+  }
+  input[type="text"] {
+    width: 90%;
+    border: solid 1px $white0;
+    background-color: $white1;
+    height: 60px;
+    padding-left: 30px;
+  }
+  input[type="text"]:focus {
+    outline-style: unset;
+  }
+  ::placeholder {
+    opacity: 0.7;
+    font-size: 18px;
+    font-weight: 400;
+    font-family: $main-font;
+  }
+  select {
+    height: 60px;
+    border: solid 1px $white0;
+    width: 50%;
+    outline-style: unset;
+    padding-left: 30px;
+    font-size: 18px;
+  }
+}
+
+.date-of-birth-input {
+  input[type="text"] {
+    width: 24.1%;
+    margin-right: 5%;
+  }
+}

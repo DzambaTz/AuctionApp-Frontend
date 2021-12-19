@@ -39,29 +39,39 @@ fetch = function () {
 };
 
 const api = {
-  post: (route, data) => {
-    return execute(route, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: authHeader(),
+  post: (route, data, url) => {
+    return execute(
+      route,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: data.headers.Authorization
+            ? data.headers.Authorization
+            : authHeader(),
+        },
+        body: JSON.stringify(data),
       },
-      body: JSON.stringify(data),
-    });
+      url
+    );
   },
-  get: (route) => {
-    return execute(route, {
-      method: "GET",
-      headers: {
-        Authorization: authHeader(),
+  get: (route, url) => {
+    return execute(
+      route,
+      {
+        method: "GET",
+        headers: {
+          Authorization: authHeader(),
+        },
       },
-    });
+      url
+    );
   },
 };
 
-const execute = async (route, config) => {
+const execute = async (route, config, url = BASE_URL) => {
   return new Promise((resolve, reject) => {
-    fetch(BASE_URL + route, config)
+    fetch(url + route, config)
       .then(
         (response) => {
           response?.text()?.then(

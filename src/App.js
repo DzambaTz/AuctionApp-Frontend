@@ -11,6 +11,7 @@ import PrivacyPage from "./Pages/privacy-policy";
 import TermsPage from "./Pages/terms-and-conditions";
 import ItemPreviewPage from "./Pages/item-preview-page";
 import ShopPage from "./Pages/shop-page";
+import AccountPage from "./Pages/account-page";
 
 function App() {
   return (
@@ -27,6 +28,8 @@ function App() {
         <Route path="/search/:input" component={ShopPage} />
         <Route path="/search/" component={ShopPage} />
         <Route path="/shop/" component={ShopPage} />
+        <Route path="/account/:tab" component={AccountPage} />
+        <Route path="/account/" component={AccountPage} />
         <Route component={PageNotFound} />
       </Switch>
     </Router>

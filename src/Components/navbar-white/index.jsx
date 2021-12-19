@@ -2,6 +2,8 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import logo from "../../Assets/Images/app_logo.png";
+import authService from "../../Auth/auth.service";
+import { ACCOUNT_TABS } from "../../Helpers/accountPageUtils";
 
 import "./index.scss";
 
@@ -16,6 +18,7 @@ const NavbarWhite = (props) => {
     window.location.href =
       "/search/" + document.getElementById("search-bar").value;
   };
+
   return (
     <div className="navbar-container">
       <div className="logo">
@@ -54,18 +57,35 @@ const NavbarWhite = (props) => {
         ) : (
           <a href="/shop">SHOP</a>
         )}
-        {props.page === "account" ? (
-          <a
-            Style="color: #8367d8;font-weight: 700;margin-right: 30%;"
-            href="/account"
-          >
-            MY ACCOUNT
-          </a>
-        ) : (
-          <a Style="margin-right: 30%;" href="/account">
-            MY ACCOUNT
-          </a>
-        )}
+        {props.page === "account"
+          ? authService.getCurrentUser() && (
+              <div>
+                <a
+                  id="account-tab"
+                  Style="color: #8367d8;font-weight: 700;"
+                  href="/account"
+                >
+                  MY ACCOUNT
+                </a>
+                <div className="account-links">
+                  {ACCOUNT_TABS.map((tab) => {
+                    return <a href={tab.link}>{tab.text}</a>;
+                  })}
+                </div>
+              </div>
+            )
+          : authService.getCurrentUser() && (
+              <div className="account-links-container">
+                <a id="account-tab" href="/account">
+                  MY ACCOUNT
+                </a>
+                <div className="account-links">
+                  {ACCOUNT_TABS.map((tab) => {
+                    return <a href={tab.link}>{tab.text}</a>;
+                  })}
+                </div>
+              </div>
+            )}
       </div>
     </div>
   );
