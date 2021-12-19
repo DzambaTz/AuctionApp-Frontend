@@ -334,7 +334,7 @@ function ShopPage() {
               className={viewStyle == GRID_VIEW && "view-is-active"}
               onClick={() => setViewStyle(GRID_VIEW)}
             >
-              <FontAwesomeIcon icon={faBorderAll} Style="color: orange" /> Grid
+              <FontAwesomeIcon icon={faBorderAll} /> Grid
             </button>
             <button
               className={viewStyle == LIST_VIEW && "view-is-active"}
@@ -350,7 +350,7 @@ function ShopPage() {
               filteredItems.map((item) => {
                 return (
                   <ItemCard
-                    image={item.images[0] + ".jpeg"}
+                    image={item.images[0]}
                     title={item.name}
                     price={item.startPrice}
                     link={`/item/preview/${item.id}`}
@@ -363,7 +363,7 @@ function ShopPage() {
             return (
               <ListViewItem
                 link={`/item/preview/${item.id}`}
-                image={item.images[0] + ".jpeg"}
+                image={item.images[0]}
                 title={item.name}
                 description={item.description}
                 price={item.startPrice}
