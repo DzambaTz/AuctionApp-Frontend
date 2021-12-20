@@ -3,6 +3,8 @@ export const SUBCATEGORY = "Subcategory";
 export const PRICE_RANGE = "Price range";
 export const DEFAULT_SORT = "DEFAULT_SORT";
 export const DEFAULT_DIRECTION = "ASC";
+export const GRID_VIEW = "grid";
+export const LIST_VIEW = "list";
 
 export const SORTING_TYPES = [
   {

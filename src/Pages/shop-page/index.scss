@@ -171,14 +171,35 @@
 }
 
 .sorting-selector {
+  float: left;
   select {
     font-family: $main-font;
     font-size: 16px;
     border: solid 2px $white0;
     padding: 12px 24px;
   }
+  width: 77.5%;
 }
 
 .sort-and-view-select {
-  margin-bottom: 32px;
+  margin-bottom: 80px;
+}
+
+.view-selector {
+  padding-top: 20px;
+  float: left;
+  font-style: $main-font;
+  button {
+    background: none;
+    border: none;
+    margin-right: 30px;
+    font-size: 17px;
+  }
+  button:hover {
+    color: $purple;
+  }
+}
+
+.view-is-active {
+  color: $purple;
 }
