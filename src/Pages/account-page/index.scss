@@ -34,6 +34,7 @@
   margin: auto;
   border: solid 1px $gray3;
   height: 800px;
+  margin-bottom: 60px;
   h2 {
     margin: 0;
     font-size: 18px;
@@ -97,6 +98,7 @@
     background-color: $white1;
     height: 60px;
     padding-left: 30px;
+    font-size: 18px;
   }
   input[type="text"]:focus {
     outline-style: unset;
@@ -121,5 +123,159 @@
   input[type="text"] {
     width: 24.1%;
     margin-right: 5%;
+  }
+}
+
+.profile-info-submit {
+  float: right;
+  background: none;
+  border: solid 2px $purple;
+  font-family: $main-font;
+  font-size: 18px;
+  padding: 10px 20px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-right: 8%;
+  span {
+    margin-left: 15px;
+  }
+}
+
+.profile-info-submit:hover {
+  background-color: $purple;
+  color: white;
+}
+
+.profile-card-info-form {
+  font-family: $main-font;
+  font-size: 18px;
+  font-weight: 400;
+  box-sizing: border-box;
+  width: 84%;
+  margin: auto;
+  border: solid 1px $gray3;
+  height: 580px;
+  margin-bottom: 60px;
+  h2 {
+    margin: 0;
+    font-size: 18px;
+    background-color: $white1;
+    height: 60px;
+    font-weight: 400;
+    border: solid 1px $gray3;
+    line-height: 60px;
+    padding-left: 32px;
+  }
+  input[type="radio"] {
+    margin-left: 35%;
+    margin-top: 25px;
+  }
+  h1 {
+    font-size: 18px;
+    font-weight: 400;
+    margin-left: 35%;
+    margin-top: 30px;
+  }
+  input[type="text"] {
+    width: 58.5%;
+    border: solid 1px $white0;
+    background-color: $white1;
+    height: 60px;
+    padding-left: 30px;
+    font-size: 18px;
+    margin-left: 35%;
+  }
+  input[type="text"]:focus {
+    outline-style: unset;
+  }
+  ::placeholder {
+    opacity: 0.7;
+    font-size: 18px;
+    font-weight: 400;
+    font-family: $main-font;
+  }
+}
+
+.expiration-date-input {
+  margin-left: 35%;
+  display: inline;
+  input[type="text"] {
+    width: 15%;
+    border: solid 1px $white0;
+    background-color: $white1;
+    height: 60px;
+    padding-left: 30px;
+    font-size: 18px;
+    margin-left: 0;
+    margin-right: 4.2%;
+  }
+  span {
+    margin-left: 35%;
+  }
+  h1 {
+    display: inline-block;
+    margin-left: 0;
+  }
+}
+
+.profile-address-info-form {
+  font-family: $main-font;
+  font-size: 18px;
+  font-weight: 400;
+  box-sizing: border-box;
+  width: 84%;
+  margin: auto;
+  border: solid 1px $gray3;
+  height: 500px;
+  margin-bottom: 60px;
+  h2 {
+    margin: 0;
+    font-size: 18px;
+    background-color: $white1;
+    height: 60px;
+    font-weight: 400;
+    border: solid 1px $gray3;
+    line-height: 60px;
+    padding-left: 32px;
+  }
+  h1 {
+    font-size: 18px;
+    font-weight: 400;
+    margin-left: 35%;
+    margin-top: 30px;
+  }
+  input[type="text"] {
+    width: 58.5%;
+    border: solid 1px $white0;
+    background-color: $white1;
+    height: 60px;
+    padding-left: 30px;
+    font-size: 18px;
+    margin-left: 35%;
+  }
+  input[type="text"]:focus {
+    outline-style: unset;
+  }
+  ::placeholder {
+    opacity: 0.7;
+    font-size: 18px;
+    font-weight: 400;
+    font-family: $main-font;
+  }
+  span {
+    h1 {
+      display: inline-block;
+      margin-left: 35%;
+      margin-bottom: 10px;
+    }
+    input[type="text"] {
+      width: 23%;
+      border: solid 1px $white0;
+      background-color: $white1;
+      height: 60px;
+      padding-left: 30px;
+      font-size: 18px;
+      margin-left: 35%;
+    }
   }
 }

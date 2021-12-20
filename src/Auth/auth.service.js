@@ -27,7 +27,7 @@ class AuthService {
       userId: this.getCurrentUser().id,
     });
     localStorage.removeItem("user");
-    window.location.reload();
+    window.location.replace("/");
   }
 
   register(firstName, lastName, email, password) {

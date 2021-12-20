@@ -46,7 +46,7 @@ const api = {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: data.headers.Authorization
+          Authorization: data?.headers?.Authorization
             ? data.headers.Authorization
             : authHeader(),
         },
@@ -63,6 +63,22 @@ const api = {
         headers: {
           Authorization: authHeader(),
         },
+      },
+      url
+    );
+  },
+  put: (route, data, url) => {
+    return execute(
+      route,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: data?.headers?.Authorization
+            ? data.headers.Authorization
+            : authHeader(),
+        },
+        body: JSON.stringify(data),
       },
       url
     );

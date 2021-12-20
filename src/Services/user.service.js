@@ -1,6 +1,7 @@
 import api from "../Helpers/api";
 import authHeader from "../Helpers/auth-header";
 import { IMAGE_API_URL } from "../Helpers/baseConfig";
+import authService from "../Auth/auth.service";
 
 const getPublicContent = () => {
   return api.get("v1/test/all");
@@ -18,17 +19,52 @@ const placeBid = (itemId, amount) => {
   return api.post("v1/bid/place/" + itemId, { amount });
 };
 
-const changeProfilePhoto = (encodedImage) => {
-  return api.post(
-    "image",
-    {
-      image: encodedImage,
-      headers: {
-        Authorization: `Client-ID ${process.env.REACT_APP_IMGUR_CLIENT_ID}`,
-      },
-    },
-    IMAGE_API_URL
-  );
+const getProfilePhoto = () => {
+  return api.get(`v1/user/profilePhoto/${authService.getCurrentUser().id}`);
+};
+
+const changeProfilePhoto = (imageURL) => {
+  return api.put(`v1/user/profilePhoto/${authService.getCurrentUser().id}`, {
+    url: imageURL,
+  });
+};
+
+const getPersonalInfo = () => {
+  return api.get(`v1/user/personalInfo/${authService.getCurrentUser().id}`);
+};
+
+const changePersonalInfo = (
+  firstName,
+  lastName,
+  phoneNumber,
+  gender,
+  dateOfBirth,
+  streetAddress,
+  city,
+  zipCode,
+  state,
+  country,
+  nameOnCard,
+  cardNumber,
+  expirationDate,
+  cvv
+) => {
+  return api.put(`v1/user/personalInfo/${authService.getCurrentUser().id}`, {
+    firstName,
+    lastName,
+    phoneNumber,
+    gender,
+    dateOfBirth,
+    streetAddress,
+    city,
+    zipCode,
+    state,
+    country,
+    nameOnCard,
+    cardNumber,
+    expirationDate,
+    cvv,
+  });
 };
 
 export default {
@@ -36,5 +72,8 @@ export default {
   getSellerContent,
   getItemData,
   placeBid,
+  getProfilePhoto,
   changeProfilePhoto,
+  getPersonalInfo,
+  changePersonalInfo,
 };
