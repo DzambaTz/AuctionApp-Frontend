@@ -4,7 +4,7 @@ services:
     image: localhost:5000/frontend
     container_name: frontend
     environment:
-      - "REACT_APP_BASE_URL=http://localhost:8080/api/"
+      - BACKEND=localhost
     ports:
       - 3000:3000
     restart: always
