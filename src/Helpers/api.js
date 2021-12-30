@@ -20,7 +20,7 @@ fetch = function () {
         }),
       });
       if (response.status === statusCodes.UNAUTHORIZED) {
-        return {};
+        return response;
       }
       await response.text().then((text) => {
         let newCredentials = text?.length > 0 ? JSON.parse(text) : {};
@@ -90,6 +90,7 @@ const execute = async (route, config, url = BASE_URL) => {
     fetch(url + route, config)
       .then(
         (response) => {
+          console.log(response);
           response?.text()?.then(
             (text) => {
               const json = text?.length > 0 ? JSON.parse(text) : {};

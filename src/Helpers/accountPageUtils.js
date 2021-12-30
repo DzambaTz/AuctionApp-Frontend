@@ -21,3 +21,6 @@ export const PROFILE_TAB = "profile";
 export const SELLER_TAB = "seller";
 export const BIDS_TAB = "bids";
 export const SETTINGS_TAB = "settings";
+
+export const ACTIVE_ITEMS_TAB = "active";
+export const SOLD_ITEMS_TAB = "sold";

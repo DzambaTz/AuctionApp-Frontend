@@ -1,4 +1,5 @@
 import api from "../Helpers/api";
+import authHeader from "../Helpers/auth-header";
 
 const getNewArrivals = () => {
   return api.get("v1/item/newArrivals");
@@ -49,10 +50,25 @@ const getItemPriceLimits = () => {
   return api.get("v1/item/priceLimits");
 };
 
+const getActiveItems = () => {
+  return api.get("v1/item/activeItems");
+};
+
+const getSoldItems = () => {
+  return api.get("v1/item/soldItems");
+};
+
+const getUserBidsItems = () => {
+  return api.get("v1/bid/userBids");
+};
+
 export default {
   getNewArrivals,
   getItemData,
   getLastChance,
   getFilteredItems,
   getItemPriceLimits,
+  getActiveItems,
+  getSoldItems,
+  getUserBidsItems,
 };

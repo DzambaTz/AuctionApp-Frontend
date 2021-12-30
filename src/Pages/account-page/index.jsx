@@ -7,10 +7,12 @@ import "./index.scss";
 import { useParams } from "react-router-dom";
 import { useState } from "react/cjs/react.development";
 import {
+  ACTIVE_ITEMS_TAB,
   BIDS_TAB,
   PROFILE_TAB,
   SELLER_TAB,
   SETTINGS_TAB,
+  SOLD_ITEMS_TAB,
 } from "../../Helpers/accountPageUtils";
 import titleCase from "../../Helpers/titleCase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -25,6 +27,8 @@ import userService from "../../Services/user.service";
 import statusCodes from "../../Helpers/status-codes";
 import { useEffect } from "react";
 import uploadImage from "../../Helpers/uploadImage";
+import itemService from "../../Services/item.service";
+import cartImage from "../../Assets/Images/cart.png";
 
 function AccountPage() {
   const pathTab = useParams().tab;
@@ -37,7 +41,7 @@ function AccountPage() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [gender, setGender] = useState("");
-  const [dayOfBirth, setDayOfBirth] = useState("");
+  const [dayOfBirth, sethayOfBirth] = useState("");
   const [monthOfBirth, setMonthOfBirth] = useState("");
   const [yearOfBirth, setYearOfBirth] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -52,36 +56,56 @@ function AccountPage() {
   const [expirationMonth, setExpirationMonth] = useState("");
   const [expirationYear, setExpirationYear] = useState("");
   const [cvv, setCvv] = useState("");
+  const [activeSellerTableTab, setActiveSellerTableTab] =
+    useState(ACTIVE_ITEMS_TAB);
+  const [activeItems, setActiveItems] = useState("");
+  const [soldItems, setSoldItems] = useState("");
+  const [bidItems, setBidItems] = useState("");
 
   useEffect(() => {
-    userService.getProfilePhoto().then((response) => {
-      if (response.status == statusCodes.OK)
-        response.body.message != "No value present" &&
-          setProfilePhoto(response.body.message);
-    });
-    userService.getPersonalInfo().then((response) => {
-      if (response.status == statusCodes.OK) {
-        setFirstName(response.body.firstName);
-        setLastName(response.body.lastName);
-        setPhoneNumber(response.body.phoneNumber);
-        setEmail(response.body.email);
-        setStreetAddress(response.body.streetAddress);
-        setCity(response.body.city);
-        setZipCode(response.body.zipCode);
-        setState(response.body.state);
-        setCountry(response.body.country);
-        setNameOnCard(response.body.nameOnCard);
-        setCardNumber(response.body.cardNumber);
-        setExpirationMonth(response.body.expirationDate?.split("/")[0]);
-        setExpirationYear(response.body.expirationDate?.split("/")[1]);
-        setCvv(response.body.cvv);
-        setDayOfBirth(response.body.dateOfBirth?.split("/")[0]);
-        setMonthOfBirth(response.body.dateOfBirth?.split("/")[1]);
-        setYearOfBirth(response.body.dateOfBirth?.split("/")[2]);
-        setGender(response.body.gender);
-      }
-    });
-  }, []);
+    if (activeTab == PROFILE_TAB) {
+      userService.getProfilePhoto().then((response) => {
+        if (response.status == statusCodes.OK)
+          response.body.message != "No value present" &&
+            setProfilePhoto(response.body.message);
+      });
+      userService.getPersonalInfo().then((response) => {
+        if (response.status == statusCodes.OK) {
+          setFirstName(response.body.firstName);
+          setLastName(response.body.lastName);
+          setPhoneNumber(response.body.phoneNumber);
+          setEmail(response.body.email);
+          setStreetAddress(response.body.streetAddress);
+          setCity(response.body.city);
+          setZipCode(response.body.zipCode);
+          setState(response.body.state);
+          setCountry(response.body.country);
+          setNameOnCard(response.body.nameOnCard);
+          setCardNumber(response.body.cardNumber);
+          setExpirationMonth(response.body.expirationDate?.split("/")[0]);
+          setExpirationYear(response.body.expirationDate?.split("/")[1]);
+          setCvv(response.body.cvv);
+          sethayOfBirth(response.body.dateOfBirth?.split("/")[0]);
+          setMonthOfBirth(response.body.dateOfBirth?.split("/")[1]);
+          setYearOfBirth(response.body.dateOfBirth?.split("/")[2]);
+          setGender(response.body.gender);
+        }
+      });
+    } else if (activeTab == SELLER_TAB) {
+      itemService.getActiveItems().then((response) => {
+        if (response.status == statusCodes.OK) setActiveItems(response.body);
+      });
+      itemService.getSoldItems().then((response) => {
+        if (response.status == statusCodes.OK) setSoldItems(response.body);
+      });
+    } else if (activeTab == BIDS_TAB) {
+      itemService.getUserBidsItems().then((response) => {
+        if (response.status == statusCodes.OK) {
+          setBidItems(response.body);
+        }
+      });
+    }
+  }, [activeTab]);
 
   useEffect(() => {
     setMessage("");
@@ -245,7 +269,7 @@ function AccountPage() {
                 <input
                   type="text"
                   placeholder="DD"
-                  onChange={(e) => setDayOfBirth(e.target.value)}
+                  onChange={(e) => sethayOfBirth(e.target.value)}
                   value={dayOfBirth}
                 />
                 <input
@@ -349,6 +373,172 @@ function AccountPage() {
               <FontAwesomeIcon icon={faAngleRight} />
             </span>
           </button>
+        </div>
+      )}
+      {activeTab == SELLER_TAB && (
+        <div className="seller-tab">
+          <div className="seller-tab-table-switch">
+            <button
+              className={
+                activeSellerTableTab == ACTIVE_ITEMS_TAB
+                  ? "active-tab"
+                  : "not-active-tab"
+              }
+              onClick={() => setActiveSellerTableTab(ACTIVE_ITEMS_TAB)}
+            >
+              Active
+            </button>
+            <button
+              className={
+                activeSellerTableTab == SOLD_ITEMS_TAB
+                  ? "active-tab"
+                  : "not-active-tab"
+              }
+              onClick={() => setActiveSellerTableTab(SOLD_ITEMS_TAB)}
+            >
+              Sold
+            </button>
+          </div>
+          <table>
+            <tr>
+              <th Style="width:10%">Item</th>
+              <th Style="width:30%">Name</th>
+              {activeSellerTableTab == ACTIVE_ITEMS_TAB && (
+                <th Style="width:10%">Time left</th>
+              )}
+              <th Style="width:10%">Your price</th>
+              <th Style="width:10%">No. bids</th>
+              <th Style="width:10%">Highest bid</th>
+              <th Style="width:10%"></th>
+            </tr>
+            {activeItems
+              ? activeSellerTableTab == ACTIVE_ITEMS_TAB &&
+                activeItems.map((item) => {
+                  return (
+                    <tr>
+                      <td Style="text-align: center; padding-left: 0">
+                        <img src={item.imageUrl} alt="" />
+                      </td>
+                      <td>
+                        {item.name} <br /> <span>#{item.itemId}</span>
+                      </td>
+                      <td>{item.timeLeft.substr(0, 7)}</td>
+                      <td>$ {item.startPrice}</td>
+                      <td Style="padding-left:55px">{item.numberOfBids}</td>
+                      <td>$ {item.highestBid}</td>
+                      <td>
+                        <a href={`/item/preview/${item.itemId}`}>VIEW</a>
+                      </td>
+                    </tr>
+                  );
+                })
+              : activeSellerTableTab == ACTIVE_ITEMS_TAB && (
+                  <tr className="no-items-view">
+                    <td colSpan={6}>
+                      <img Style="max-height: 75px;" src={cartImage} alt="" />
+                      <h1>You do not have any items for sale.</h1>
+                      <a id="start-selling" href="/">
+                        START SELLING
+                      </a>
+                    </td>
+                  </tr>
+                )}
+            {soldItems
+              ? activeSellerTableTab == SOLD_ITEMS_TAB &&
+                soldItems.map((item) => {
+                  return (
+                    <tr>
+                      <td Style="text-align: center; padding-left: 0">
+                        <img src={item.imageUrl} alt="" />
+                      </td>
+                      <td>
+                        {item.name} <br /> <span>#{item.itemId}</span>
+                      </td>
+                      <td>$ {item.startPrice}</td>
+                      <td Style="padding-left:55px">{item.numberOfBids}</td>
+                      <td>$ {item.highestBid}</td>
+                      <td>
+                        <a href={`/item/preview/${item.itemId}`}>VIEW</a>
+                      </td>
+                    </tr>
+                  );
+                })
+              : activeSellerTableTab == SOLD_ITEMS_TAB && (
+                  <tr className="no-items-view">
+                    <td colSpan={6}>
+                      <img Style="max-height: 75px;" src={cartImage} alt="" />
+                      <h1>You do not have any sold items.</h1>
+                      <a id="start-selling" href="/">
+                        START SELLING
+                      </a>
+                    </td>
+                  </tr>
+                )}
+          </table>
+        </div>
+      )}
+      {activeTab == BIDS_TAB && (
+        <div className="seller-tab">
+          <table>
+            <tr>
+              <th Style="width:10%">Item</th>
+              <th Style="width:30%">Name</th>
+              {<th Style="width:10%">Time left</th>}
+              <th Style="width:10%">Your bid</th>
+              <th Style="width:10%">No. bids</th>
+              <th Style="width:10%">Highest bid</th>
+              <th Style="width:10%"></th>
+            </tr>
+            {bidItems ? (
+              bidItems.map((item) => {
+                return (
+                  <tr>
+                    <td Style="text-align: center; padding-left: 0">
+                      <img src={item.imageUrl} alt="" />
+                    </td>
+                    <td>
+                      {item.name} <br /> <span>#{item.itemId}</span>
+                    </td>
+                    <td>{item.timeLeft.substr(0, 7)}</td>
+                    <td>$ {item.bidAmount}</td>
+                    <td Style="padding-left:55px">{item.count}</td>
+                    <td
+                      Style={
+                        item.maxBidAmount > item.bidAmount
+                          ? "color: red"
+                          : "color: green"
+                      }
+                    >
+                      $ {item.maxBidAmount}
+                    </td>
+                    <td>
+                      <a href={`/item/preview/${item.itemId}`}>VIEW</a>
+                    </td>
+                  </tr>
+                );
+              })
+            ) : (
+              <tr className="no-items-view">
+                <td colSpan={6}>
+                  <h1>You have not placed any bids.</h1>
+                  <a id="start-selling" href="/shop">
+                    START BIDDING
+                  </a>
+                </td>
+              </tr>
+            )}
+          </table>
+        </div>
+      )}
+      {activeTab == SETTINGS_TAB && (
+        <div className="settings-tab">
+          <div className="settings-account-section">
+            <h1>Account</h1>
+            <span>Do you want to deactivate your account?</span>
+            <br />
+            <br />
+            <button onClick={userService.deactivateAccount}>DEACTIVATE</button>
+          </div>
         </div>
       )}
       <div className="clear-space-for-footer"></div>

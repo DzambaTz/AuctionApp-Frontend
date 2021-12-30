@@ -18,7 +18,7 @@ class AuthService {
             JSON.stringify(response.body.refreshToken)
           );
         }
-        return response?.body;
+        return response;
       });
   }
 

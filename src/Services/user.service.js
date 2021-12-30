@@ -2,6 +2,7 @@ import api from "../Helpers/api";
 import authHeader from "../Helpers/auth-header";
 import { IMAGE_API_URL } from "../Helpers/baseConfig";
 import authService from "../Auth/auth.service";
+import statusCodes from "../Helpers/status-codes";
 
 const getPublicContent = () => {
   return api.get("v1/test/all");
@@ -67,6 +68,15 @@ const changePersonalInfo = (
   });
 };
 
+const deactivateAccount = () => {
+  api.put("v1/user/deactivate").then((response) => {
+    if (response.status == statusCodes.OK) {
+      console.log("nesto");
+      authService.logout();
+    }
+  });
+};
+
 export default {
   getPublicContent,
   getSellerContent,
@@ -76,4 +86,5 @@ export default {
   changeProfilePhoto,
   getPersonalInfo,
   changePersonalInfo,
+  deactivateAccount,
 };
