@@ -30,11 +30,12 @@ spec:
         ports:
         - containerPort: 3000
         livenessProbe:
-          exec:
-            command:
-              - /bin/sh 
-              - -c
-              - nc -zv localhost 3000
+          httpGet:
+            path: /
+            port: 80
+            httpHeaders:
+              - name: Test
+                value: Test
           initialDelaySeconds: 10
           periodSeconds: 15
           timeoutSeconds: 10
