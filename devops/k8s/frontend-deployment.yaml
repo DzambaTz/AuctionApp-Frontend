@@ -15,20 +15,23 @@ spec:
       initContainers:
         - name: check-backend
           image: busybox:1.31
+          envFrom:
+            - configMapRef:
+                name: backend-configmap
           command:
             ['sh', '-c', 'until nc -z backend 8080; do echo waiting; sleep 2; done;']
       containers:
       - name: frontend
-        image: cloud.canister.io:5000/acibeee/auction-frontend
+        image: abhpraksa.azurecr.io/frontend
         resources:
           limits:
             memory: "1024M"
-            cpu: "500m"
+            cpu: "0.1"
         env:
           - name: backend
             value: backend
         ports:
-        - containerPort: 3000
+        - containerPort: 80
         livenessProbe:
           httpGet:
             path: /
