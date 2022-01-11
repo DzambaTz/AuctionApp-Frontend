@@ -27,9 +27,6 @@ spec:
           limits:
             memory: "1024M"
             cpu: "0.1"
-        env:
-          - name: backend
-            value: backend
         ports:
         - containerPort: 80
         livenessProbe:
@@ -43,4 +40,4 @@ spec:
           periodSeconds: 15
           timeoutSeconds: 10
       imagePullSecrets:
-        - name: canister
+        - name: azure
