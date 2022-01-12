@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: {{ .Values.metadata.namespace }}
+spec:
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      initContainers:
+        - name: check-backend
+          image: busybox:1.31
+          command:
+            ['sh', '-c', 'until nc -z backend 8080; do echo waiting; sleep 2; done;']
+      containers:
+      - name: {{ .Values.image.container }}
+        image: {{ .Values.image.repository }}
+        resources:
+          {{- toYaml .Values.resources | nindent 12 }}
+        ports:
+        - containerPort: {{ .Values.service.port }}
+        livenessProbe:
+          httpGet:
+            path: /
+            port: {{ .Values.service.port }}
+            httpHeaders:
+             - name: Test
+               value: Test
+          initialDelaySeconds: 10
+          periodSeconds: 15
+          timeoutSeconds: 10
+      imagePullSecrets:
+        - name: docker-login
