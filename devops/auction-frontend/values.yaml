@@ -25,6 +25,12 @@ fullnameOverride: ""
 init:
   enaled: true
 
+liveness:
+  path: /
+  initDelay: 10
+  period: 15
+  timeout: 10
+
 serviceAccount:
   # Specifies whether a service account should be created
   create: true

@@ -31,13 +31,13 @@ spec:
         - containerPort: {{ .Values.service.port }}
         livenessProbe:
           httpGet:
-            path: /
+            path: {{ .Values.liveness.path }}
             port: {{ .Values.service.port }}
             httpHeaders:
              - name: Test
                value: Test
-          initialDelaySeconds: 10
-          periodSeconds: 15
-          timeoutSeconds: 10
+          initialDelaySeconds: {{ .Values.liveness.initDelay }}
+          periodSeconds: {{ .Values.liveness.period }}
+          timeoutSeconds: {{ .Values.liveness.timeout }}
       imagePullSecrets:
         - name: docker-login
