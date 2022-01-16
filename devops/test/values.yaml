@@ -1,24 +1,16 @@
-# Default values for auction-frontend.
+# Default values for test.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
 
-metadata:
-  name: frontend
-  namespace: app
-
 image:
-  repository: abhpraksa.azurecr.io/frontend
-  # B64 encoded .docker/config.json
-  auth: <docker login>
+  repository: nginx
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
-  container: frontend
 
-imagePullSecrets: 
-  - name: docker-login
+imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
@@ -45,33 +37,36 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
-  name: frontend
   type: ClusterIP
   port: 80
 
 ingress:
-  tls: 
-    - secret: frontend-tls
-      hosts: 
-      - frontend.racun.ninja
-  rules:
-    host: frontend.racun.ninja
-    path: "/"
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    cert-manager.io/cluster-issuer: "letsencrypt-test"
+  enabled: false
+  className: ""
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
 
-resources:
+resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  limits:
-    cpu: "500m"
-    memory: "1024M"
-  requests:
-    cpu: 100m
-    memory: 128Mi
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
 
 autoscaling:
   enabled: false

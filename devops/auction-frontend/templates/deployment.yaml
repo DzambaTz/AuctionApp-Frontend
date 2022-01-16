@@ -1,16 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend
+  name: {{ include "auction-frontend.name" . }}
   namespace: {{ .Values.metadata.namespace }}
+  labels: 
+    {{- include "auction-frontend.labels" . | nindent 4 }}
 spec:
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: frontend
+      app: {{ include "auction-frontend.name" . }}
   template:
     metadata:
       labels:
-        app: frontend
+        app: {{ include "auction-frontend.name" . }}
     spec:
       initContainers:
         - name: check-backend
