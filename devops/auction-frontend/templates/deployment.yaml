@@ -15,11 +15,13 @@ spec:
       labels:
         app: {{ include "auction-frontend.name" . }}
     spec:
+    {{- if .Values.init.enabled }}
       initContainers:
         - name: check-backend
           image: busybox:1.31
           command:
             ['sh', '-c', 'until nc -z backend 8080; do echo waiting; sleep 2; done;']
+    {{- end }}
       containers:
       - name: {{ .Values.image.container }}
         image: {{ .Values.image.repository }}
