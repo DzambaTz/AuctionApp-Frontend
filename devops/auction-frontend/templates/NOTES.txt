@@ -1,1 +1,4 @@
-Frontend is now live at https://{{ .Values.ingress.rules.host }}
+Frontend is now live on: 
+{{- range .Values.ingress.rules }}
+https://{{ .host }}
+{{- end }}

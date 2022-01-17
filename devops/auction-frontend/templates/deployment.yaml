@@ -29,15 +29,8 @@ spec:
           {{- toYaml .Values.resources | nindent 12 }}
         ports:
         - containerPort: {{ .Values.service.port }}
-        livenessProbe:
-          httpGet:
-            path: {{ .Values.liveness.path }}
-            port: {{ .Values.service.port }}
-            httpHeaders:
-             - name: Test
-               value: Test
-          initialDelaySeconds: {{ .Values.liveness.initDelay }}
-          periodSeconds: {{ .Values.liveness.period }}
-          timeoutSeconds: {{ .Values.liveness.timeout }}
+        {{- if .Values.probes -}}
+        {{- toYaml .Values.probes | nindent 8 }}
+        {{- end }}
       imagePullSecrets:
         - name: docker-login

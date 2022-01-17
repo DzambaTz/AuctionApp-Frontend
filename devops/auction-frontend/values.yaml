@@ -6,10 +6,10 @@ replicaCount: 1
 
 metadata:
   name: frontend
-  namespace: app
+  namespace: auction
 
 image:
-  repository: abhpraksa.azurecr.io/frontend
+  repository: abhpraksa.azurecr.io/frontend:v1.0.0
   # B64 encoded .docker/config.json
   auth: <docker login>
   pullPolicy: IfNotPresent
@@ -23,13 +23,19 @@ nameOverride: ""
 fullnameOverride: ""
 
 init:
-  enaled: true
+  enabled: true
 
-liveness:
-  path: /
-  initDelay: 10
-  period: 15
-  timeout: 10
+probes:
+  livenessProbe:
+    httpGet:
+      path: /
+      port: 80
+      httpHeaders:
+       - name: Test
+         value: Test
+    initialDelaySeconds: 20
+    periodSeconds: 25
+    timeoutSeconds: 20
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -59,13 +65,17 @@ service:
   port: 80
 
 ingress:
+  enabled: true
   tls: 
-    - secret: frontend-tls
+    - secret: frontend-auction-tls
       hosts: 
-      - frontend.racun.ninja
+      - auction.racun.ninja
   rules:
-    host: frontend.racun.ninja
-    path: "/"
+  - host: auction.racun.ninja
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
   annotations:
     kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: "letsencrypt-test"
