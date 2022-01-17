@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "auction-frontend.name" . }}
+  namespace: {{ .Values.metadata.namespace }}
+  labels: 
+    {{- include "auction-frontend.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "auction-frontend.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "auction-frontend.name" . }}
+    spec:
+    {{- if .Values.init.enabled }}
+      initContainers:
+        - name: check-backend
+          image: busybox:1.31
+          command:
+            ['sh', '-c', 'until nc -z backend 8080; do echo waiting; sleep 2; done;']
+    {{- end }}
+      containers:
+      - name: {{ .Values.image.container }}
+        image: {{ .Values.image.repository }}
+        resources:
+          {{- toYaml .Values.resources | nindent 12 }}
+        ports:
+        - containerPort: {{ .Values.service.port }}
+        {{- if .Values.probes -}}
+        {{- toYaml .Values.probes | nindent 8 }}
+        {{- end }}
+      imagePullSecrets:
+        - name: docker-login

@@ -1,0 +1,4 @@
+Frontend is now live on: 
+{{- range .Values.ingress.rules }}
+https://{{ .host }}
+{{- end }}
