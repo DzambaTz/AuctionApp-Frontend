@@ -2,7 +2,7 @@ import api from "../Helpers/api";
 class AuthService {
   login(email, password) {
     return api
-      .post("auth/signin", {
+      .post("auth/sign-in", {
         email,
         password,
       })
@@ -31,7 +31,7 @@ class AuthService {
   }
 
   register(firstName, lastName, email, password) {
-    return api.post("auth/signup", {
+    return api.post("auth/sign-up", {
       firstName,
       lastName,
       email,

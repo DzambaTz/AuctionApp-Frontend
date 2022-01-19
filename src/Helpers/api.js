@@ -10,7 +10,7 @@ fetch = function () {
 
   return originalFetch.apply(self, args).then(async function (data) {
     if (data.status === statusCodes.UNAUTHORIZED) {
-      let response = await originalFetch(BASE_URL + "auth/refreshtoken", {
+      let response = await originalFetch(BASE_URL + "auth/refresh-token", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -90,7 +90,6 @@ const execute = async (route, config, url = BASE_URL) => {
     fetch(url + route, config)
       .then(
         (response) => {
-          console.log(response);
           response?.text()?.then(
             (text) => {
               const json = text?.length > 0 ? JSON.parse(text) : {};

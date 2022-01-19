@@ -9,9 +9,8 @@ import featuredShoe from "../../Assets/Images/featured-shoe.jpg";
 import ItemCard from "../../Components/item-card";
 import testData from "../../Helpers/test-data";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import GridView from "../../Components/grid-view";
-import { useEffect } from "react/cjs/react.development";
 import itemService from "../../Services/item.service";
 
 const LandingPage = () => {

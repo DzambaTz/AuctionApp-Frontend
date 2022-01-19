@@ -14,7 +14,7 @@ import {
   SETTINGS_TAB,
   SOLD_ITEMS_TAB,
 } from "../../Helpers/accountPageUtils";
-import titleCase from "../../Helpers/titleCase";
+import titleCase from "../../Helpers/TextUtil";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
@@ -38,57 +38,29 @@ function AccountPage() {
     "https://www.pngall.com/wp-content/uploads/5/Profile-PNG-File.png"
   );
   const [message, setMessage] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [gender, setGender] = useState("");
-  const [dayOfBirth, sethayOfBirth] = useState("");
-  const [monthOfBirth, setMonthOfBirth] = useState("");
-  const [yearOfBirth, setYearOfBirth] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [email, setEmail] = useState("");
-  const [streetAddress, setStreetAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [zipCode, setZipCode] = useState("");
-  const [state, setState] = useState("");
-  const [country, setCountry] = useState("");
-  const [nameOnCard, setNameOnCard] = useState("");
-  const [cardNumber, setCardNumber] = useState("");
-  const [expirationMonth, setExpirationMonth] = useState("");
-  const [expirationYear, setExpirationYear] = useState("");
-  const [cvv, setCvv] = useState("");
   const [activeSellerTableTab, setActiveSellerTableTab] =
     useState(ACTIVE_ITEMS_TAB);
   const [activeItems, setActiveItems] = useState("");
   const [soldItems, setSoldItems] = useState("");
   const [bidItems, setBidItems] = useState("");
+  const [personalInfo, setPersonalInfo] = useState("");
+  const [dayOfBirth, setDayOfBirth] = useState("");
+  const [monthOfBirth, setMonthOfBirth] = useState("");
+  const [yearOfBirth, setYearOfBirth] = useState("");
+  const [expirationMonth, setExpirationMonth] = useState("");
+  const [expirationYear, setExpirationYear] = useState("");
 
   useEffect(() => {
     if (activeTab == PROFILE_TAB) {
-      userService.getProfilePhoto().then((response) => {
-        if (response.status == statusCodes.OK)
-          response.body.message != "No value present" &&
-            setProfilePhoto(response.body.message);
-      });
       userService.getPersonalInfo().then((response) => {
         if (response.status == statusCodes.OK) {
-          setFirstName(response.body.firstName);
-          setLastName(response.body.lastName);
-          setPhoneNumber(response.body.phoneNumber);
-          setEmail(response.body.email);
-          setStreetAddress(response.body.streetAddress);
-          setCity(response.body.city);
-          setZipCode(response.body.zipCode);
-          setState(response.body.state);
-          setCountry(response.body.country);
-          setNameOnCard(response.body.nameOnCard);
-          setCardNumber(response.body.cardNumber);
-          setExpirationMonth(response.body.expirationDate?.split("/")[0]);
-          setExpirationYear(response.body.expirationDate?.split("/")[1]);
-          setCvv(response.body.cvv);
-          sethayOfBirth(response.body.dateOfBirth?.split("/")[0]);
-          setMonthOfBirth(response.body.dateOfBirth?.split("/")[1]);
-          setYearOfBirth(response.body.dateOfBirth?.split("/")[2]);
-          setGender(response.body.gender);
+          setPersonalInfo(response.body);
+          setDayOfBirth(response.body.dateOfBirth.split("/")[0]);
+          setMonthOfBirth(response.body.dateOfBirth.split("/")[1]);
+          setYearOfBirth(response.body.dateOfBirth.split("/")[2]);
+          setExpirationMonth(response.body.expirationDate.split("/")[0]);
+          setExpirationYear(response.body.expirationDate.split("/")[1]);
+          setProfilePhoto(response.body.profilePhoto);
         }
       });
     } else if (activeTab == SELLER_TAB) {
@@ -119,7 +91,7 @@ function AccountPage() {
         (response) => {
           if (response.body.status == statusCodes.OK) {
             userService
-              .changeProfilePhoto(response.body.data.link)
+              .changePersonalInfo({ profilePhotoUrl: response.body.data.link })
               .then((response) => {
                 if (response.status == statusCodes.OK) {
                   setSuccessful(true);
@@ -131,8 +103,8 @@ function AccountPage() {
                   );
                 }
               });
+            setProfilePhoto(response.body.data.link);
           }
-          setProfilePhoto(response.body.data.link);
         }
       );
     };
@@ -142,32 +114,15 @@ function AccountPage() {
   };
 
   const saveProfileInfo = () => {
-    userService
-      .changePersonalInfo(
-        firstName,
-        lastName,
-        phoneNumber,
-        gender,
-        [dayOfBirth, monthOfBirth, yearOfBirth].join("/"),
-        streetAddress,
-        city,
-        zipCode,
-        state,
-        country,
-        nameOnCard,
-        cardNumber,
-        [expirationMonth, expirationYear].join("/"),
-        cvv
-      )
-      .then((response) => {
-        if (response.status == statusCodes.OK) {
-          setSuccessful(true);
-          setMessage(response.body.message);
-        } else {
-          setSuccessful(false);
-          setMessage("Error while trying to update personal info!");
-        }
-      });
+    userService.changePersonalInfo(personalInfo).then((response) => {
+      if (response.status == statusCodes.OK) {
+        setSuccessful(true);
+        setMessage(response.body.message);
+      } else {
+        setSuccessful(false);
+        setMessage("Error while trying to update personal info!");
+      }
+    });
   };
 
   return (
@@ -246,19 +201,34 @@ function AccountPage() {
               <h1>First name</h1>
               <input
                 type="text"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
+                value={personalInfo.firstName}
+                onChange={(e) =>
+                  setPersonalInfo((prevState) => ({
+                    ...prevState,
+                    firstName: e.target.value,
+                  }))
+                }
               />
               <h1>Last Name</h1>
               <input
                 type="text"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
+                value={personalInfo.lastName}
+                onChange={(e) =>
+                  setPersonalInfo((prevState) => ({
+                    ...prevState,
+                    lastName: e.target.value,
+                  }))
+                }
               />
               <h1>I am</h1>
               <select
-                value={gender}
-                onChange={(e) => setGender(e.target.value)}
+                value={personalInfo.gender}
+                onChange={(e) =>
+                  setPersonalInfo((prevState) => ({
+                    ...prevState,
+                    gender: e.target.value,
+                  }))
+                }
               >
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
@@ -269,30 +239,65 @@ function AccountPage() {
                 <input
                   type="text"
                   placeholder="DD"
-                  onChange={(e) => sethayOfBirth(e.target.value)}
+                  onChange={(e) => {
+                    setDayOfBirth(e.target.value);
+                    setPersonalInfo((prevState) => ({
+                      ...prevState,
+                      dateOfBirth: [
+                        e.target.value,
+                        monthOfBirth,
+                        yearOfBirth,
+                      ].join("/"),
+                    }));
+                  }}
                   value={dayOfBirth}
                 />
                 <input
                   type="text"
                   placeholder="MM"
-                  onChange={(e) => setMonthOfBirth(e.target.value)}
+                  onChange={(e) => {
+                    setMonthOfBirth(e.target.value);
+                    setPersonalInfo((prevState) => ({
+                      ...prevState,
+                      dateOfBirth: [
+                        dayOfBirth,
+                        e.target.value,
+                        yearOfBirth,
+                      ].join("/"),
+                    }));
+                  }}
                   value={monthOfBirth}
                 />
                 <input
                   type="text"
                   placeholder="YYYY"
-                  onChange={(e) => setYearOfBirth(e.target.value)}
+                  onChange={(e) => {
+                    setYearOfBirth(e.target.value);
+                    setPersonalInfo((prevState) => ({
+                      ...prevState,
+                      dateOfBirth: [
+                        dayOfBirth,
+                        monthOfBirth,
+                        e.target.value,
+                      ].join("/"),
+                    }));
+                  }}
                   value={yearOfBirth}
                 />
               </div>
               <h1>Phone number</h1>
               <input
                 type="text"
-                value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
+                value={personalInfo.phoneNumber}
+                onChange={(e) =>
+                  setPersonalInfo((prevState) => ({
+                    ...prevState,
+                    phoneNumber: e.target.value,
+                  }))
+                }
               />
               <h1>Email address</h1>
-              <input type="text" disabled="true" value={email} />
+              <input type="text" disabled="true" value={personalInfo.email} />
             </div>
           </div>
           <div className="profile-card-info-form">
@@ -302,14 +307,24 @@ function AccountPage() {
             <h1>Name on card</h1>
             <input
               type="text"
-              value={nameOnCard}
-              onChange={(e) => setNameOnCard(e.target.value)}
+              value={personalInfo.nameOnCard}
+              onChange={(e) =>
+                setPersonalInfo((prevState) => ({
+                  ...prevState,
+                  nameOnCard: e.target.value,
+                }))
+              }
             />
             <h1>Card number</h1>
             <input
               type="text"
-              value={cardNumber}
-              onChange={(e) => setCardNumber(e.target.value)}
+              value={personalInfo.cardNumber}
+              onChange={(e) =>
+                setPersonalInfo((prevState) => ({
+                  ...prevState,
+                  cardNumber: e.target.value,
+                }))
+              }
             />
             <div className="expiration-date-input">
               <h1>Expiration date</h1>
@@ -319,19 +334,40 @@ function AccountPage() {
                   type="text"
                   placeholder="MM"
                   value={expirationMonth}
-                  onChange={(e) => setExpirationMonth(e.target.value)}
+                  onChange={(e) => {
+                    setExpirationMonth(e.target.value);
+                    setPersonalInfo((prevState) => ({
+                      ...prevState,
+                      expirationDate: [e.target.value, expirationYear].join(
+                        "/"
+                      ),
+                    }));
+                  }}
                 />
                 <input
                   type="text"
                   placeholder="YY"
                   value={expirationYear}
-                  onChange={(e) => setExpirationYear(e.target.value)}
+                  onChange={(e) => {
+                    setExpirationYear(e.target.value);
+                    setPersonalInfo((prevState) => ({
+                      ...prevState,
+                      expirationDate: [expirationMonth, e.target.value].join(
+                        "/"
+                      ),
+                    }));
+                  }}
                 />
                 <input
                   type="text"
                   id="cvv"
-                  value={cvv}
-                  onChange={(e) => setCvv(e.target.value)}
+                  value={personalInfo.cvv}
+                  onChange={(e) =>
+                    setPersonalInfo((prevState) => ({
+                      ...prevState,
+                      cvv: e.target.value,
+                    }))
+                  }
                 />
               </span>
             </div>
@@ -341,8 +377,13 @@ function AccountPage() {
             <h1>Street</h1>
             <input
               type="text"
-              value={streetAddress}
-              onChange={(e) => setStreetAddress(e.target.value)}
+              value={personalInfo.streetAddress}
+              onChange={(e) =>
+                setPersonalInfo((prevState) => ({
+                  ...prevState,
+                  streetAddress: e.target.value,
+                }))
+              }
             />
             <span>
               <h1>City</h1>
@@ -350,21 +391,36 @@ function AccountPage() {
               <br />
               <input
                 type="text"
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
+                value={personalInfo.city}
+                onChange={(e) =>
+                  setPersonalInfo((prevState) => ({
+                    ...prevState,
+                    city: e.target.value,
+                  }))
+                }
               />
               <input
                 Style="margin-left: 10%"
                 type="text"
-                value={zipCode}
-                onChange={(e) => setZipCode(e.target.value)}
+                value={personalInfo.zipCode}
+                onChange={(e) =>
+                  setPersonalInfo((prevState) => ({
+                    ...prevState,
+                    zipCode: e.target.value,
+                  }))
+                }
               />
             </span>
             <h1>Country</h1>
             <input
               type="text"
-              value={country}
-              onChange={(e) => setCountry(e.target.value)}
+              value={personalInfo.country}
+              onChange={(e) =>
+                setPersonalInfo((prevState) => ({
+                  ...prevState,
+                  country: e.target.value,
+                }))
+              }
             />
           </div>
           <button className="profile-info-submit" onClick={saveProfileInfo}>

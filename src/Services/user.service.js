@@ -1,6 +1,4 @@
 import api from "../Helpers/api";
-import authHeader from "../Helpers/auth-header";
-import { IMAGE_API_URL } from "../Helpers/baseConfig";
 import authService from "../Auth/auth.service";
 import statusCodes from "../Helpers/status-codes";
 
@@ -9,7 +7,7 @@ const getPublicContent = () => {
 };
 
 const getSellerContent = () => {
-  return api.get("v1/test/seller", { headers: authHeader() });
+  return api.get("v1/test/seller");
 };
 
 const getItemData = (itemId) => {
@@ -20,58 +18,17 @@ const placeBid = (itemId, amount) => {
   return api.post("v1/bid/place/" + itemId, { amount });
 };
 
-const getProfilePhoto = () => {
-  return api.get(`v1/user/profilePhoto/${authService.getCurrentUser().id}`);
-};
-
-const changeProfilePhoto = (imageURL) => {
-  return api.put(`v1/user/profilePhoto/${authService.getCurrentUser().id}`, {
-    url: imageURL,
-  });
-};
-
 const getPersonalInfo = () => {
-  return api.get(`v1/user/personalInfo/${authService.getCurrentUser().id}`);
+  return api.get(`v1/user/personal-info/`);
 };
 
-const changePersonalInfo = (
-  firstName,
-  lastName,
-  phoneNumber,
-  gender,
-  dateOfBirth,
-  streetAddress,
-  city,
-  zipCode,
-  state,
-  country,
-  nameOnCard,
-  cardNumber,
-  expirationDate,
-  cvv
-) => {
-  return api.put(`v1/user/personalInfo/${authService.getCurrentUser().id}`, {
-    firstName,
-    lastName,
-    phoneNumber,
-    gender,
-    dateOfBirth,
-    streetAddress,
-    city,
-    zipCode,
-    state,
-    country,
-    nameOnCard,
-    cardNumber,
-    expirationDate,
-    cvv,
-  });
+const changePersonalInfo = (personalInfo) => {
+  return api.put(`v1/user/personal-info/`, personalInfo);
 };
 
 const deactivateAccount = () => {
   api.put("v1/user/deactivate").then((response) => {
     if (response.status == statusCodes.OK) {
-      console.log("nesto");
       authService.logout();
     }
   });
@@ -82,8 +39,6 @@ export default {
   getSellerContent,
   getItemData,
   placeBid,
-  getProfilePhoto,
-  changeProfilePhoto,
   getPersonalInfo,
   changePersonalInfo,
   deactivateAccount,
