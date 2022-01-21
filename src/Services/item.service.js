@@ -61,6 +61,10 @@ const getUserBidsItems = () => {
   return api.get("v1/bid/user-bids");
 };
 
+const addNewItem = (item) => {
+  return api.post("v1/item/new-item", item);
+};
+
 export default {
   getNewArrivals,
   getItemData,
@@ -70,4 +74,5 @@ export default {
   getActiveItems,
   getSoldItems,
   getUserBidsItems,
+  addNewItem,
 };

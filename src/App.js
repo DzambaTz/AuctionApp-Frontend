@@ -12,6 +12,7 @@ import TermsPage from "./Pages/terms-and-conditions";
 import ItemPreviewPage from "./Pages/item-preview-page";
 import ShopPage from "./Pages/shop-page";
 import AccountPage from "./Pages/account-page";
+import AddItemPage from "./Pages/add-item-page";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path="/shop/" component={ShopPage} />
         <Route path="/account/:tab" component={AccountPage} />
         <Route path="/account/" component={AccountPage} />
+        <Route path="/add-item/" component={AddItemPage} />
         <Route component={PageNotFound} />
       </Switch>
     </Router>

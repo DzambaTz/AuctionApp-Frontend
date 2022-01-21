@@ -1,1 +1,131 @@
 @import "../../Helpers/constants.scss";
+
+.add-item-form {
+  width: 50%;
+  font-family: $main-font;
+  margin: 75px auto;
+  border: solid 1px $gray3;
+  h1 {
+    text-align: center;
+    margin: 0;
+    padding: 15px 0px;
+    background-color: $white1;
+    font-size: 22px;
+  }
+  h2 {
+    font-size: 18px;
+    margin-left: 5%;
+  }
+  h3 {
+    font-size: 14px;
+    margin-left: 5%;
+    color: $gray1;
+  }
+  input {
+    margin-left: 5%;
+    padding: 10px;
+    width: 87%;
+    font-size: 16px;
+    outline-color: $purple;
+  }
+  textarea {
+    margin-left: 5%;
+    width: 89.3%;
+    height: 200px;
+    font-family: $main-font;
+    font-size: 16px;
+    resize: none;
+    outline-color: $purple;
+  }
+  select {
+    margin-left: 5%;
+    width: 42.5%;
+    padding: 10px;
+    margin-top: 30px;
+    outline-color: $purple;
+    font-size: 16px;
+  }
+  span {
+    background-color: $gray2;
+    padding: 11.5px 20px;
+    position: absolute;
+    left: 41.5px;
+    font-weight: 700;
+  }
+}
+
+.dropzone {
+  font-family: $main-font;
+  margin: 30px 0px 20px 5%;
+  background-color: $gray3;
+  text-align: center;
+  width: 90%;
+  padding: 75px 0px;
+  border: dashed 1px $gray0;
+}
+
+.upload-button {
+  display: block;
+  margin-left: 80%;
+  padding: 15px 35px;
+  margin-bottom: 20px;
+  background-color: $purple;
+  color: white;
+  font-weight: 700;
+  font-size: 16px;
+  font-family: $main-font;
+  border: solid 3px $purple;
+  cursor: pointer;
+}
+.upload-button:disabled {
+  background-color: transparent;
+  cursor: not-allowed;
+  color: $gray1;
+}
+
+#price-input {
+  position: relative;
+  input {
+    padding-left: 60px;
+    width: 81%;
+  }
+}
+
+#add-item-back-button {
+  background-color: transparent;
+  border: solid 3px $purple;
+  font-family: $main-font;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 15px 30px;
+  margin: 100px 57.5% 20px 5%;
+  cursor: pointer;
+}
+
+#add-item-back-button:hover {
+  background-color: $purple;
+  color: white;
+}
+
+#post-item-button {
+  background-color: transparent;
+  border: solid 3px $purple;
+  font-family: $main-font;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 15px 30px;
+  cursor: pointer;
+}
+
+#post-item-button:hover {
+  background-color: $purple;
+  color: white;
+}
+
+.add-item-page-3 {
+  text-align: center;
+  img {
+    max-width: 30%;
+    margin: 50px 0px;
+  }
+}

@@ -185,6 +185,11 @@ function AccountPage() {
         >
           <FontAwesomeIcon icon={faCog} /> Settings
         </button>
+        {activeTab == SELLER_TAB && (
+          <a id="add-item-button" href="/add-item">
+            + ADD ITEM
+          </a>
+        )}
       </div>
       {activeTab == PROFILE_TAB && (
         <div>
