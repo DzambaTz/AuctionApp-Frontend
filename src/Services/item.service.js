@@ -1,11 +1,11 @@
 import api from "../Helpers/api";
 
 const getNewArrivals = () => {
-  return api.get("v1/item/newArrivals");
+  return api.get("v1/item/new-arrivals");
 };
 
 const getLastChance = () => {
-  return api.get("v1/item/lastChance");
+  return api.get("v1/item/last-chance");
 };
 
 const getItemData = (itemId) => {
@@ -46,7 +46,19 @@ const getFilteredItems = (
 };
 
 const getItemPriceLimits = () => {
-  return api.get("v1/item/priceLimits");
+  return api.get("v1/item/price-limits");
+};
+
+const getActiveItems = () => {
+  return api.get("v1/item/active-items");
+};
+
+const getSoldItems = () => {
+  return api.get("v1/item/sold-items");
+};
+
+const getUserBidsItems = () => {
+  return api.get("v1/bid/user-bids");
 };
 
 export default {
@@ -55,4 +67,7 @@ export default {
   getLastChance,
   getFilteredItems,
   getItemPriceLimits,
+  getActiveItems,
+  getSoldItems,
+  getUserBidsItems,
 };

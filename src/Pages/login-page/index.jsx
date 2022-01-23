@@ -6,6 +6,7 @@ import authService from "../../Auth/auth.service";
 
 import "./index.scss";
 import { useHistory } from "react-router";
+import statusCodes from "../../Helpers/status-codes";
 
 function LoginPage() {
   let history = useHistory();
@@ -28,16 +29,18 @@ function LoginPage() {
     setMessage("");
     setLoading(true);
 
-    authService.login(email, password).then(
-      () => {
+    authService.login(email, password).then((response) => {
+      if (response.status == statusCodes.OK) {
         history.push("/");
         window.location.reload();
-      },
-      () => {
-        setMessage("Invalid email or password");
+      } else if (response.status == statusCodes.UNAUTHORIZED) {
+        setMessage("Email or password invalid!");
+        setLoading(false);
+      } else {
+        setMessage(response.body.message);
         setLoading(false);
       }
-    );
+    });
 
     setLoading(false);
   };

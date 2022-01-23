@@ -2,7 +2,7 @@ import api from "../Helpers/api";
 class AuthService {
   login(email, password) {
     return api
-      .post("auth/signin", {
+      .post("auth/sign-in", {
         email,
         password,
       })
@@ -18,7 +18,7 @@ class AuthService {
             JSON.stringify(response.body.refreshToken)
           );
         }
-        return response?.body;
+        return response;
       });
   }
 
@@ -27,10 +27,11 @@ class AuthService {
       userId: this.getCurrentUser().id,
     });
     localStorage.removeItem("user");
+    window.location.replace("/");
   }
 
   register(firstName, lastName, email, password) {
-    return api.post("auth/signup", {
+    return api.post("auth/sign-up", {
       firstName,
       lastName,
       email,
