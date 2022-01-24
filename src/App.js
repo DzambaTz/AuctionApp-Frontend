@@ -13,6 +13,7 @@ import ItemPreviewPage from "./Pages/item-preview-page";
 import ShopPage from "./Pages/shop-page";
 import AccountPage from "./Pages/account-page";
 import AddItemPage from "./Pages/add-item-page";
+import PaymentSuccessPage from "./Pages/payment-success-page";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path="/account/:tab" component={AccountPage} />
         <Route path="/account/" component={AccountPage} />
         <Route path="/add-item/" component={AddItemPage} />
+        <Route path="/payment-success" component={PaymentSuccessPage} />
         <Route component={PageNotFound} />
       </Switch>
     </Router>

@@ -29,6 +29,7 @@ import { useEffect } from "react";
 import uploadImage from "../../Helpers/uploadImage";
 import itemService from "../../Services/item.service";
 import cartImage from "../../Assets/Images/cart.png";
+import paymentService from "../../Services/payment.service";
 
 function AccountPage() {
   const pathTab = useParams().tab;
@@ -125,10 +126,24 @@ function AccountPage() {
     });
   };
 
+  const createCheckoutSession = (item) => {
+    const itemPaymentData = {
+      paymentAmount: Math.floor(item.bidAmount * 100),
+      name: item.name,
+      imageUrl: item.imageUrl,
+    };
+
+    paymentService.createCheckoutSession(itemPaymentData).then((response) => {
+      if (response?.status == statusCodes.OK) {
+        window.location.replace(response?.body?.message);
+      }
+    });
+  };
+
   return (
     <div>
       <NavbarBlack />
-      <NavbarWhite />
+      <NavbarWhite page="account" />
       <Banner
         title={titleCase(activeTab)}
         base="My Account"
@@ -560,7 +575,11 @@ function AccountPage() {
                     <td>
                       {item.name} <br /> <span>#{item.itemId}</span>
                     </td>
-                    <td>{item.timeLeft.substr(0, 7)}</td>
+                    <td>
+                      {item.timeLeft.substr(0, 7)[0] == "-"
+                        ? "Auction ended"
+                        : item.timeLeft.substr(0, 7)}
+                    </td>
                     <td>$ {item.bidAmount}</td>
                     <td Style="padding-left:55px">{item.count}</td>
                     <td
@@ -573,7 +592,18 @@ function AccountPage() {
                       $ {item.maxBidAmount}
                     </td>
                     <td>
-                      <a href={`/item/preview/${item.itemId}`}>VIEW</a>
+                      {item.timeLeft.substr(0, 7)[0] == "-" &&
+                      item.maxBidAmount == item.bidAmount ? (
+                        <a
+                          onClick={() => {
+                            createCheckoutSession(item);
+                          }}
+                        >
+                          PAY
+                        </a>
+                      ) : (
+                        <a href={`/item/preview/${item.itemId}`}>VIEW</a>
+                      )}
                     </td>
                   </tr>
                 );
