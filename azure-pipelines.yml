@@ -38,3 +38,4 @@ steps:
       chartType: 'FilePath'
       chartPath: $(Build.ArtifactStagingDirectory)/auction-frontend-0.1.0.tgz
       arguments: '--create-namespace'
+      
