@@ -1,0 +1,40 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pr:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+  - task: Docker@2
+    displayName: Build and Push
+    inputs:
+      containerRegistry: 'ABHPraksa'
+      repository: 'auction-frontend'
+      command: 'buildAndPush'
+      Dockerfile: '**/Dockerfile'
+  - task: HelmDeploy@0
+    displayName: Package Helm
+    inputs:
+      command: 'package'
+      chartPath: './devops/auction-frontend'
+      destination: $(Build.ArtifactStagingDirectory)
+  - task: HelmDeploy@0
+    displayName: Deploy Helm
+    inputs:
+      connectionType: 'Azure Resource Manager'
+      azureSubscription: 'Azure subscription 1 (aea3f23c-28cc-46da-bf0e-b2907a086bef)'
+      azureResourceGroup: 'ABH-Praksa'
+      kubernetesCluster: 'ABH-Praksa'
+      namespace: 'auction'
+      command: 'upgrade'
+      chartType: 'FilePath'
+      chartPath: $(Build.ArtifactStagingDirectory)/auction-frontend-0.1.0.tgz
+      arguments: '--create-namespace'
