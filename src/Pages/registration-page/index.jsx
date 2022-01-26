@@ -6,7 +6,7 @@ import authService from "../../Auth/auth.service";
 import statusCodes from "../../Helpers/status-codes";
 
 import "./index.scss";
-import { useState } from "react/cjs/react.development";
+import { useState } from "react";
 
 function RegisterPage() {
   const [firstName, setFirstName] = useState("");

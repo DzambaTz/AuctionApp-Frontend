@@ -15,7 +15,7 @@ const getItemData = (itemId) => {
 };
 
 const placeBid = (itemId, amount) => {
-  return api.post("v1/bid/place/" + itemId, { amount });
+  return api.post(`v1/bid/${itemId}/place/`, { amount });
 };
 
 const getPersonalInfo = () => {

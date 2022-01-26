@@ -5,7 +5,6 @@ import Banner from "../../Components/banner";
 
 import "./index.scss";
 import { useParams } from "react-router-dom";
-import { useState } from "react/cjs/react.development";
 import {
   ACTIVE_ITEMS_TAB,
   BIDS_TAB,
@@ -25,7 +24,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import userService from "../../Services/user.service";
 import statusCodes from "../../Helpers/status-codes";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import uploadImage from "../../Helpers/uploadImage";
 import itemService from "../../Services/item.service";
 import cartImage from "../../Assets/Images/cart.png";
@@ -185,6 +184,11 @@ function AccountPage() {
         >
           <FontAwesomeIcon icon={faCog} /> Settings
         </button>
+        {activeTab == SELLER_TAB && (
+          <a id="add-item-button" href="/add-item">
+            + ADD ITEM
+          </a>
+        )}
       </div>
       {activeTab == PROFILE_TAB && (
         <div>

@@ -405,3 +405,18 @@
     font-weight: 700;
   }
 }
+
+#add-item-button {
+  float: right;
+  margin-right: 9%;
+  background-color: $purple;
+  color: white;
+  padding: 20px 30px;
+  font-family: $main-font;
+  text-decoration: none;
+}
+
+#add-item-button:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
