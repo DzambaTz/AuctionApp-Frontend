@@ -11,6 +11,7 @@ import uploadImage from "../../Helpers/uploadImage";
 import itemService from "../../Services/item.service";
 import redCross from "../../Assets/Images/red-cross.png";
 import greenTick from "../../Assets/Images/green-tick.png";
+import { PAGE_1, PAGE_2, PAGE_3 } from "../../Helpers/addItemPageUtils";
 
 function AddItemPage() {
   const [selectedFiles, setSelectedFiles] = useState("");
@@ -29,26 +30,26 @@ function AddItemPage() {
   const [startPrice, setStartPrice] = useState(0);
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
-  const [pageNumber, setPageNumber] = useState(1);
+  const [pageNumber, setPageNumber] = useState(PAGE_1);
   const [message, setMessage] = useState("");
   const [successful, setSuccessful] = useState("");
 
   const onCategoryChange = (e) => {
     setSelectedCategory(e.target.value);
     setSubcategories(
-      testData.categories.filter(
+      testData?.categories?.filter(
         (category) => category.name == e.target.value
       )[0].subcategories
     );
     setSelectedSubcategory(
-      testData.categories.filter(
+      testData?.categories?.filter(
         (category) => category.name == e.target.value
       )[0].subcategories[0]
     );
   };
 
   const onDrop = (files) => {
-    if (files.length > 0) {
+    if (files.length) {
       setSelectedFiles(files);
     }
     setImages([]);
@@ -68,7 +69,7 @@ function AddItemPage() {
         });
       };
     });
-    setPageNumber(2);
+    setPageNumber(PAGE_2);
   };
 
   const postItem = () => {
@@ -85,8 +86,8 @@ function AddItemPage() {
 
     itemService.addNewItem(item).then((response) => {
       if (response.status == statusCodes.OK) {
-        setPageNumber(3);
-        setMessage(response.body.message);
+        setPageNumber(PAGE_3);
+        setMessage("Item successfully posted!");
         setSuccessful(true);
       } else {
         setSuccessful(false);
@@ -101,7 +102,7 @@ function AddItemPage() {
       <NavbarWhite />
       <Banner title="ADD ITEM" base="My account" current="Add item" />
       <div className="add-item-form">
-        {pageNumber == 1 && (
+        {pageNumber == PAGE_1 && (
           <>
             <h1>ADD ITEM</h1>
             <h2>What do you sell?</h2>
@@ -160,7 +161,7 @@ function AddItemPage() {
             </Dropzone>
           </>
         )}
-        {pageNumber == 2 && (
+        {pageNumber == PAGE_2 && (
           <>
             <h1>SET PRICES</h1>
             <h2>Your start price</h2>
@@ -188,7 +189,7 @@ function AddItemPage() {
             <button
               id="add-item-back-button"
               onClick={() => {
-                setPageNumber(1);
+                setPageNumber(PAGE_1);
               }}
             >
               {"<"} BACK
@@ -198,7 +199,7 @@ function AddItemPage() {
             </button>
           </>
         )}
-        {pageNumber == 3 && (
+        {pageNumber == PAGE_3 && (
           <div className="add-item-page-3">
             <h1>{message}</h1>
             {successful ? (
